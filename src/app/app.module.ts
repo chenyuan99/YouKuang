@@ -13,6 +13,7 @@ import {FooterComponent} from './main/footer/footer.component';
 import {SiderComponent} from './main/sider/sider.component';
 import {ContentComponent} from './main/content/content.component';
 import {AppComponent} from './app.component';
+import { AddAccountButtonComponent } from './main/sider/add-account-button/add-account-button.component';
 
 registerLocaleData(zh);
 
@@ -23,6 +24,7 @@ registerLocaleData(zh);
     HeaderComponent,
     FooterComponent,
     ContentComponent,
+    AddAccountButtonComponent,
   ],
   imports: [
     BrowserModule,

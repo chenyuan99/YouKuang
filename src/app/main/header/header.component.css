@@ -1,0 +1,14 @@
+.img-wrapper img {
+  border-radius: 50%;
+  width: 40px;
+}
+
+.img-wrapper {
+  float: right;
+}
+
+.user-name-text {
+  color: white;
+  margin-left: 10px;
+  font-size: 20px;
+}

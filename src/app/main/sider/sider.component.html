@@ -1,21 +1,33 @@
 <div class="logo">
+  <div *ngIf="isCollapsed"
+       class="img-wrapper">
+    <img src="assets/img/logo.jpg">
+  </div>
+  <div class="logo-text"
+       *ngIf="!isCollapsed">家里有矿也要记账
+  </div>
 </div>
 <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
   <li nz-submenu>
-    <span title><i nz-icon type="user"></i><span class="nav-text">User</span></span>
+    <span title>
+      <i nz-icon type="user"></i>
+      <span class="nav-text">我</span>
+    </span>
     <ul>
-      <li nz-menu-item>Tom</li>
-      <li nz-menu-item>Bill</li>
-      <li nz-menu-item>Alex</li>
+      <li nz-menu-item>我的资产</li>
+      <li nz-menu-item>我的账单</li>
     </ul>
   </li>
   <li nz-submenu>
-    <span title><i nz-icon type="team"></i><span class="nav-text">Team</span></span>
+    <span title>
+      <i nz-icon type="team"></i>
+      <span class="nav-text">账本</span>
+    </span>
     <ul>
-      <li nz-menu-item>Team 1</li>
-      <li nz-menu-item>Team 2</li>
+      <li nz-menu-item>默认账本</li>
+      <li nz-menu-item>网购</li>
     </ul>
   </li>
-  <li nz-menu-item><span><i nz-icon type="file"></i><span class="nav-text">File</span></span></li>
 </ul>
+<app-add-account-button [isCollapsed]="isCollapsed"></app-add-account-button>
 
