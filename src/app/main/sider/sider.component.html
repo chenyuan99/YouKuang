@@ -1,13 +1,4 @@
-<div class="logo">
-  <div *ngIf="isCollapsed"
-       class="img-wrapper">
-    <img src="assets/img/logo.jpg">
-  </div>
-  <div class="logo-text"
-       *ngIf="!isCollapsed">家里有矿也要记账
-  </div>
-</div>
-<ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+<ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
   <li nz-submenu>
     <span title>
       <i nz-icon type="user"></i>

@@ -1,9 +1,9 @@
-.img-wrapper img {
+.userInfo img {
   border-radius: 50%;
   width: 40px;
 }
 
-.img-wrapper {
+.userInfo {
   float: right;
 }
 
@@ -12,3 +12,36 @@
   margin-left: 10px;
   font-size: 20px;
 }
+
+.logo img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: Center;
+  height: 64px;
+  width: 250px;
+  color: rgb(255, 255, 255);
+}
+
+.logo.isCollapse {
+  width: 80px;
+}
+
+.logo.isMobile {
+  width: 64px;
+}
+
+.logo-text {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  font-size: 23px;
+  text-align: center;
+  margin-left: 15px;
+}
+
+

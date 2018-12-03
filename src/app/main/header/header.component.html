@@ -1,4 +1,14 @@
-<div class="img-wrapper">
+<div
+  [class.isCollapse]="isCollapsed"
+  [class.isMobile]="isMobile"
+  class="logo">
+  <img src="assets/img/logo.jpg">
+  <span class="logo-text"
+        *ngIf="!isMobile && !isCollapsed">有矿记账
+  </span>
+</div>
+
+<div class="userInfo">
   <img src="assets/img/logo.jpg">
   <span class="user-name-text">{{userInfo.userName}}</span>
 </div>

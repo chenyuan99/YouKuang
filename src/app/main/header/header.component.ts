@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {UserInfo} from '../../entity/UserInfo';
 
@@ -8,6 +8,12 @@ import {UserInfo} from '../../entity/UserInfo';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  @Input()
+  isCollapsed = false;
+
+  @Input()
+  isMobile = false;
+
   userInfo: UserInfo;
 
   constructor(private userService: UserService) {

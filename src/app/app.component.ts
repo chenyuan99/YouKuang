@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {USER_INFO} from './DATA';
 
 @Component({
@@ -11,11 +11,18 @@ export class AppComponent implements OnInit {
 
   title = 'YouKuang';
 
+  isMobile = false;
+
   constructor() {
   }
 
   ngOnInit(): void {
     console.log(JSON.stringify(USER_INFO).replace(/_/g, ''));
+  }
 
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = event.target.innerWidth > 600 ? false : true;
   }
 }

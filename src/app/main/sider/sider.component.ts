@@ -14,5 +14,4 @@ export class SiderComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

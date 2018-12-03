@@ -1,20 +1,21 @@
 <nz-layout style="height: 100%;">
-  <nz-sider
-    [nzCollapsible]="true"
-    [(nzCollapsed)]=isCollapsed
-    [nzWidth]="250">
-    <app-sider [isCollapsed]="isCollapsed"></app-sider>
-  </nz-sider>
+  <nz-header style="padding: 0;background: #1890ff">
+    <app-header
+      [isMobile]="isMobile"
+      [isCollapsed]="isCollapsed"></app-header>
+  </nz-header>
   <nz-layout>
-    <nz-header>
-      <app-header></app-header>
-    </nz-header>
+    <nz-sider
+      style="background: white"
+      [nzCollapsible]="true"
+      [(nzCollapsed)]=isCollapsed
+      [nzCollapsedWidth]="isMobile ? 0 : 80"
+      [nzWidth]="250">
+      <app-sider [isCollapsed]="isCollapsed"></app-sider>
+    </nz-sider>
     <nz-content>
       <app-content></app-content>
     </nz-content>
-    <nz-footer>
-      <app-footer></app-footer>
-    </nz-footer>
   </nz-layout>
 </nz-layout>
 
