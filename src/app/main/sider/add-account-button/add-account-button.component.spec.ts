@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddAccountButtonComponent } from './add-account-button.component';
+import {AddAccountButtonComponent} from './add-account-button.component';
 
 describe('AddAccountButtonComponent', () => {
   let component: AddAccountButtonComponent;
@@ -8,9 +8,9 @@ describe('AddAccountButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddAccountButtonComponent ]
+      declarations: [AddAccountButtonComponent]
     })
-    .compileComponents();
+           .compileComponents();
   }));
 
   beforeEach(() => {
