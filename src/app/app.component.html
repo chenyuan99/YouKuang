@@ -1,17 +1,16 @@
 <nz-layout style="height: 100%;">
   <nz-header style="padding: 0;background: #1890ff">
     <app-header
-      [isMobile]="isMobile"
-      [isCollapsed]="isCollapsed"></app-header>
+      [isMobile]="isMobile"></app-header>
   </nz-header>
   <nz-layout>
     <nz-sider
       style="background: white"
-      [nzCollapsible]="true"
-      [(nzCollapsed)]=isCollapsed
+      nzCollapsible
+      [nzCollapsed]=isCollapsed
       [nzCollapsedWidth]="isMobile ? 0 : 80"
       [nzWidth]="250">
-      <app-sider [isCollapsed]="isCollapsed"></app-sider>
+      <app-sider></app-sider>
     </nz-sider>
     <nz-content>
       <app-content></app-content>

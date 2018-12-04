@@ -1,5 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {USER_INFO} from './DATA';
+import {CollapseService} from './service/collapse.service';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,11 @@ import {USER_INFO} from './DATA';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  isCollapsed = false;
-
   title = 'YouKuang';
 
   isMobile = false;
 
-  constructor() {
+  constructor(public collapseService: CollapseService) {
   }
 
   ngOnInit(): void {

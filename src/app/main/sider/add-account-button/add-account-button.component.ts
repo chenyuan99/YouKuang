@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CollapseService} from '../../../service/collapse.service';
 
 @Component({
   selector: 'app-add-account-button',
@@ -6,13 +7,15 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./add-account-button.component.css']
 })
 export class AddAccountButtonComponent implements OnInit {
-  @Input()
   isCollapsed = false;
 
-  constructor() {
+  constructor(private collapsedService: CollapseService) {
   }
 
   ngOnInit() {
+    this.collapsedService.collapse$.subscribe(
+      isCollapse => this.isCollapsed = isCollapse
+    );
   }
 
 }

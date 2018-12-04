@@ -6,6 +6,7 @@
   <span class="logo-text"
         *ngIf="!isMobile && !isCollapsed">有矿记账
   </span>
+  <i nz-icon [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="collapsedService.changeCollapsed()"></i>
 </div>
 
 <div class="userInfo">

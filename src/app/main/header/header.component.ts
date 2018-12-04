@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {UserInfo} from '../../entity/UserInfo';
+import {CollapseService} from '../../service/collapse.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,6 @@ import {UserInfo} from '../../entity/UserInfo';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Input()
   isCollapsed = false;
 
   @Input()
@@ -16,10 +16,14 @@ export class HeaderComponent implements OnInit {
 
   userInfo: UserInfo;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              public collapsedService: CollapseService) {
   }
 
   ngOnInit(): void {
+    this.collapsedService.collapse$.subscribe(
+      isCollapsed => this.isCollapsed = isCollapsed
+    );
     this.userService.userInfo$.subscribe(
       userInfo => {
         this.userInfo = userInfo;
