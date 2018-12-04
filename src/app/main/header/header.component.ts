@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {UserInfo} from '../../entity/UserInfo';
 import {CollapseService} from '../../service/collapse.service';
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.userInfo$.subscribe(
+    this.userService.getUserInfo().subscribe(
       userInfo => {
         this.userInfo = userInfo;
         console.log(this.userInfo);

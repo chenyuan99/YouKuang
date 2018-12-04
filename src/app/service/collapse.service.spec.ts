@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CollapseService } from './collapse.service';
+import {CollapseService} from './collapse.service';
 
 describe('CollapseService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
