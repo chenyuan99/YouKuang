@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class MobileService {
-  public isMobile = false;
+    public isMobile = false;
 
-  constructor() {
-  }
+    constructor() {
+    }
 }

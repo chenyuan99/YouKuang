@@ -1,24 +1,24 @@
-<ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="collapsedService.isCollapsed">
-  <li nz-submenu>
+<ul [nzInlineCollapsed]="collapsedService.isCollapsed" [nzMode]="'inline'" [nzTheme]="'light'" nz-menu>
+    <li nz-submenu>
     <span title>
       <i nz-icon type="user"></i>
       <span class="nav-text">我</span>
     </span>
-    <ul>
-      <li nz-menu-item>我的资产</li>
-      <li nz-menu-item>我的账单</li>
-    </ul>
-  </li>
-  <li nz-submenu>
+        <ul>
+            <li nz-menu-item>我的资产</li>
+            <li nz-menu-item>我的账单</li>
+        </ul>
+    </li>
+    <li nz-submenu>
     <span title>
       <i nz-icon type="team"></i>
       <span class="nav-text">账本</span>
     </span>
-    <ul>
-      <li nz-menu-item>默认账本</li>
-      <li nz-menu-item>网购</li>
-    </ul>
-  </li>
+        <ul>
+            <li nz-menu-item>默认账本</li>
+            <li nz-menu-item>网购</li>
+        </ul>
+    </li>
 </ul>
 <app-add-account-button></app-add-account-button>
 

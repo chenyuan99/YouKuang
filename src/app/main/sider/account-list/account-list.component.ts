@@ -3,20 +3,20 @@ import {MyAccount} from '../../../entity/MyAccount';
 import {AccountService} from '../../../service/account.service';
 
 @Component({
-  selector: 'app-account-list',
-  templateUrl: './account-list.component.html',
-  styleUrls: ['./account-list.component.css']
+    selector: 'app-account-list',
+    templateUrl: './account-list.component.html',
+    styleUrls: ['./account-list.component.css']
 })
 export class AccountListComponent implements OnInit {
-  private accountList: MyAccount[] = [];
+    private accountList: MyAccount[] = [];
 
-  constructor(private accountService: AccountService) {
-  }
+    constructor(private accountService: AccountService) {
+    }
 
-  ngOnInit() {
-    this.accountService.getAllAccount().subscribe(
-      value => this.accountList = value
-    );
-  }
+    ngOnInit() {
+        this.accountService.getAllAccount().subscribe(
+            value => this.accountList = value
+        );
+    }
 
 }

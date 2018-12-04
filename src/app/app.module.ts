@@ -20,26 +20,26 @@ import {AccountContentComponent} from './main/content/account-content/account-co
 registerLocaleData(zh);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SiderComponent,
-    HeaderComponent,
-    FooterComponent,
-    ContentComponent,
-    AddAccountButtonComponent,
-    AccountListComponent,
-    AccountContentComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    NgZorroAntdModule
-  ],
-  providers: [{provide: NZ_I18N, useValue: zh_CN}],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SiderComponent,
+        HeaderComponent,
+        FooterComponent,
+        ContentComponent,
+        AddAccountButtonComponent,
+        AccountListComponent,
+        AccountContentComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        NgZorroAntdModule
+    ],
+    providers: [{provide: NZ_I18N, useValue: zh_CN}],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

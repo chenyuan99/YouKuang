@@ -5,24 +5,24 @@ import {CollapseService} from '../../service/collapse.service';
 import {MobileService} from '../../service/mobile.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  userInfo: UserInfo;
+    userInfo: UserInfo;
 
-  constructor(private userService: UserService,
-              public collapsedService: CollapseService,
-              public mobileService: MobileService) {
-  }
+    constructor(private userService: UserService,
+                public collapsedService: CollapseService,
+                public mobileService: MobileService) {
+    }
 
-  ngOnInit(): void {
-    this.userService.getUserInfo().subscribe(
-      userInfo => {
-        this.userInfo = userInfo;
-        console.log(this.userInfo);
-      }
-    );
-  }
+    ngOnInit(): void {
+        this.userService.getUserInfo().subscribe(
+            userInfo => {
+                this.userInfo = userInfo;
+                console.log(this.userInfo);
+            }
+        );
+    }
 }

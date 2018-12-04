@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CollapseService {
-  public isCollapsed = false;
+    public isCollapsed = false;
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  changeCollapsed() {
-    this.isCollapsed = !this.isCollapsed;
-  }
+    changeCollapsed() {
+        this.isCollapsed = !this.isCollapsed;
+    }
 }

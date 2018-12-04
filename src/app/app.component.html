@@ -1,17 +1,17 @@
 <nz-layout style="height: 100%;">
-  <nz-header style="padding: 0;background: #1890ff">
-    <app-header></app-header>
-  </nz-header>
-  <nz-layout>
-    <nz-sider
-      style="background: white"
-      [(nzCollapsed)]="collapsedService.isCollapsed"
-      [nzCollapsedWidth]="mobileService.isMobile ? 0 : 80">
-      <app-sider></app-sider>
-    </nz-sider>
-    <nz-content>
-      <app-content></app-content>
-    </nz-content>
-  </nz-layout>
+    <nz-header style="padding: 0;background: #1890ff">
+        <app-header></app-header>
+    </nz-header>
+    <nz-layout>
+        <nz-sider
+            [(nzCollapsed)]="collapsedService.isCollapsed"
+            [nzCollapsedWidth]="mobileService.isMobile ? 0 : 80"
+            style="background: white">
+            <app-sider></app-sider>
+        </nz-sider>
+        <nz-content>
+            <app-content></app-content>
+        </nz-content>
+    </nz-layout>
 </nz-layout>
 

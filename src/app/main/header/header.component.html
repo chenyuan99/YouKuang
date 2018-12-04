@@ -1,27 +1,27 @@
 <div class="header-row">
-  <div class="logo"
-       [class.isCollapse]="collapsedService.isCollapsed"
-       [class.isMobile]="mobileService.isMobile">
-    <img src="assets/img/logo.jpg">
+    <div [class.isCollapse]="collapsedService.isCollapsed"
+         [class.isMobile]="mobileService.isMobile"
+         class="logo">
+        <img src="assets/img/logo.jpg">
 
-    <span class="logo-text"
-          *ngIf="!mobileService.isMobile && !collapsedService.isCollapsed">有矿记账</span>
-  </div>
+        <span *ngIf="!mobileService.isMobile && !collapsedService.isCollapsed"
+              class="logo-text">有矿记账</span>
+    </div>
 
-  <div
-    class="trigger">
-    <button
-      nz-button nzType="primary"
-      (click)="collapsedService.changeCollapsed()">
-      <i nz-icon [type]="collapsedService.isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
-    </button>
+    <div
+        class="trigger">
+        <button
+            (click)="collapsedService.changeCollapsed()" nz-button
+            nzType="primary">
+            <i [type]="collapsedService.isCollapsed ? 'menu-unfold' : 'menu-fold'" nz-icon></i>
+        </button>
 
-  </div>
+    </div>
 
-  <div class="userInfo">
-    <img src="assets/img/logo.jpg">
-    <span
-      *ngIf="!mobileService.isMobile"
-      class="user-name-text">{{userInfo.userName}}</span>
-  </div>
+    <div class="userInfo">
+        <img src="assets/img/logo.jpg">
+        <span
+            *ngIf="!mobileService.isMobile"
+            class="user-name-text">{{userInfo.userName}}</span>
+    </div>
 </div>

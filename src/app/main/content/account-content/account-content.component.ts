@@ -5,28 +5,28 @@ import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-account-content',
-  templateUrl: './account-content.component.html',
-  styleUrls: ['./account-content.component.css']
+    selector: 'app-account-content',
+    templateUrl: './account-content.component.html',
+    styleUrls: ['./account-content.component.css']
 })
 export class AccountContentComponent implements OnInit {
-  private accountItemList: AccountItem[] = [];
+    private accountItemList: AccountItem[] = [];
 
-  constructor(private accountService: AccountService,
-              private routerService: Router) {
-  }
+    constructor(private accountService: AccountService,
+                private routerService: Router) {
+    }
 
-  ngOnInit() {
-    this.routerService.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(
-      () => this.accountService.getAccountContentById(this.parseIdFromURL(this.routerService.url))
-    );
-  }
+    ngOnInit() {
+        this.routerService.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        ).subscribe(
+            () => this.accountService.getAccountContentById(this.parseIdFromURL(this.routerService.url))
+        );
+    }
 
-  private parseIdFromURL(url: string): number {
-    // todo
-    return 1;
-  }
+    private parseIdFromURL(url: string): number {
+        // todo
+        return 1;
+    }
 
 }
