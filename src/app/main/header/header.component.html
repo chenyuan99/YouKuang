@@ -1,15 +1,27 @@
-<div
-  [class.isCollapse]="isCollapsed"
-  [class.isMobile]="isMobile"
-  class="logo">
-  <img src="assets/img/logo.jpg">
-  <span class="logo-text"
-        *ngIf="!isMobile && !isCollapsed">有矿记账
-  </span>
-  <i nz-icon [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="collapsedService.changeCollapsed()"></i>
-</div>
+<div class="header-row">
+  <div class="logo"
+       [class.isCollapse]="collapsedService.isCollapsed"
+       [class.isMobile]="mobileService.isMobile">
+    <img src="assets/img/logo.jpg">
 
-<div class="userInfo">
-  <img src="assets/img/logo.jpg">
-  <span class="user-name-text">{{userInfo.userName}}</span>
+    <span class="logo-text"
+          *ngIf="!mobileService.isMobile && !collapsedService.isCollapsed">有矿记账</span>
+  </div>
+
+  <div
+    class="trigger">
+    <button
+      nz-button nzType="primary"
+      (click)="collapsedService.changeCollapsed()">
+      <i nz-icon [type]="collapsedService.isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+    </button>
+
+  </div>
+
+  <div class="userInfo">
+    <img src="assets/img/logo.jpg">
+    <span
+      *ngIf="!mobileService.isMobile"
+      class="user-name-text">{{userInfo.userName}}</span>
+  </div>
 </div>

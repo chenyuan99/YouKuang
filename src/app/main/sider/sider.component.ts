@@ -7,14 +7,9 @@ import {CollapseService} from '../../service/collapse.service';
   styleUrls: ['./sider.component.css']
 })
 export class SiderComponent implements OnInit {
-  isCollapsed = false;
-
   constructor(private collapsedService: CollapseService) {
   }
 
   ngOnInit() {
-    this.collapsedService.collapse$.subscribe(
-      isCollapsed => this.isCollapsed = isCollapsed
-    );
   }
 }

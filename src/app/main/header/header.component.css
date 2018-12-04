@@ -1,16 +1,27 @@
-.userInfo img {
-  border-radius: 50%;
-  width: 40px;
+.header-row {
+  display: block;
+}
+
+.trigger {
+  display: inline-block;
+  margin-left: 20px;
 }
 
 .userInfo {
+  display: inline-block;
   float: right;
+  margin-right: 20px;
+}
+
+.userInfo img {
+  border-radius: 50%;
+  width: 35px;
 }
 
 .user-name-text {
   color: white;
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .logo img {
@@ -19,15 +30,15 @@
 }
 
 .logo {
-  display: flex;
-  justify-content: center;
-  align-items: Center;
+  display: inline-block;
   height: 64px;
-  width: 250px;
+  width: 200px;
+  text-align: center;
   color: rgb(255, 255, 255);
 }
 
 .logo.isCollapse {
+  text-align: center;
   width: 80px;
 }
 
@@ -36,12 +47,17 @@
 }
 
 .logo-text {
-  display: inline-block;
   vertical-align: middle;
   overflow: hidden;
   font-size: 23px;
   text-align: center;
   margin-left: 15px;
+}
+
+.img-wrapper {
+  display: inline-block;
+  width: 64px;
+  text-align: center;
 }
 
 

@@ -7,15 +7,10 @@ import {CollapseService} from '../../../service/collapse.service';
   styleUrls: ['./add-account-button.component.css']
 })
 export class AddAccountButtonComponent implements OnInit {
-  isCollapsed = false;
-
   constructor(private collapsedService: CollapseService) {
   }
 
   ngOnInit() {
-    this.collapsedService.collapse$.subscribe(
-      isCollapse => this.isCollapsed = isCollapse
-    );
   }
 
 }

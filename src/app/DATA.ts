@@ -4,7 +4,7 @@ import {MyAccount} from './entity/MyAccount';
 import {AccountItem} from './entity/AccountItem';
 
 export const USER_INFO: UserInfo = new UserInfo(
-  '家里有矿',
+  'Admin',
   'assets/img/userIcon.jpg',
   1,
 );
