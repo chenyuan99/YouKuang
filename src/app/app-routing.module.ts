@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {AccountContentComponent} from './main/content/account-content/account-content.component';
 
 const routes: Routes = [
-    {path: 'account/:id', component: AccountContentComponent}
+    {path: 'account/:id', component: AccountContentComponent},
+    {path: '**', redirectTo: 'account/0', pathMatch: 'full'}
 ];
 
 @NgModule({

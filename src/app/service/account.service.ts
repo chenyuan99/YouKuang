@@ -19,7 +19,7 @@ export class AccountService {
     }
 
     getAccountContentById(id: number): Observable<AccountItem[]> {
-        return of(this.testData[id]);
+        return of(this.testData[String(id)]);
         // return this.httpClient.get<AccountItem[]>(this.getAccountByIdURL + id);
     }
 

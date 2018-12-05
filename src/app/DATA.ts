@@ -42,12 +42,34 @@ export const ACCOUNT_LIST: MyAccount[] = [
         4),
 ];
 
-export const ACCOUNT_TO_CONTENT: { [key: string]: AccountItem[] } = {
+export const ACCOUNT_TO_CONTENT: { [key: number]: AccountItem[] } = {
     0: [
         new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤'),
         new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!'),
+        new AccountItem(0, '支出', 2123, '吃', new Date(Date.now()), '又要长胖了 嘤'),
+        new AccountItem(1, '收入', 20002, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!'),
     ],
     1: [
+        new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤111'),
+        new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!111'),
+        new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤'),
+        new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!'),
+        new AccountItem(0, '支出', 2123, '吃', new Date(Date.now()), '又要长胖了 嘤'),
+        new AccountItem(1, '收入', 20002, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!'),
+    ],
+    2: [
+        new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤'),
+        new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!'),
+    ],
+    3: [
+        new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤111'),
+        new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!111'),
+    ],
+    4: [
+        new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤'),
+        new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!'),
+    ],
+    5: [
         new AccountItem(0, '支出', 2000, '吃', new Date(Date.now()), '又要长胖了 嘤111'),
         new AccountItem(1, '收入', 2000, '工资', new Date(Date.now()), '打工是不可能打工的.....真香!!111'),
     ]

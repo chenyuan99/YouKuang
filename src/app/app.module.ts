@@ -11,10 +11,11 @@ import zh from '@angular/common/locales/zh';
 import {HeaderComponent} from './main/header/header.component';
 import {FooterComponent} from './main/footer/footer.component';
 import {SiderComponent} from './main/sider/sider.component';
-import {ContentComponent} from './main/content/content.component';
 import {AppComponent} from './app.component';
 import {AddAccountButtonComponent} from './main/sider/add-account-button/add-account-button.component';
 import {AccountContentComponent} from './main/content/account-content/account-content.component';
+import {RouteReuseStrategy} from '@angular/router';
+import {CustomReuseStrategy} from './CustomReuseStrategy';
 
 registerLocaleData(zh);
 
@@ -24,7 +25,6 @@ registerLocaleData(zh);
         SiderComponent,
         HeaderComponent,
         FooterComponent,
-        ContentComponent,
         AddAccountButtonComponent,
         AccountContentComponent,
     ],
@@ -36,7 +36,10 @@ registerLocaleData(zh);
         HttpClientModule,
         NgZorroAntdModule
     ],
-    providers: [{provide: NZ_I18N, useValue: zh_CN}],
+    providers: [
+        {provide: NZ_I18N, useValue: zh_CN},
+        // {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -8,24 +8,20 @@
         <div class="col" nz-col nzLg="8" nzXs="24">
             <nz-card
                 [nzLoading]="loading"
-                nzTitle="支出">
+                nzTitle="统计">
                 <p>test</p>
                 <p>test</p>
                 <p>test</p>
+            </nz-card>
+        </div>
+        <div class="col" nz-col nzLg="8" nzXs="24">
+            <nz-card nzTitle="支出">
+                <h1>{{incomeSum}}</h1>
             </nz-card>
         </div>
         <div class="col" nz-col nzLg="8" nzXs="24">
             <nz-card nzTitle="收入">
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-            </nz-card>
-        </div>
-        <div class="col" nz-col nzLg="8" nzXs="24">
-            <nz-card nzTitle="test Card">
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                <h1>{{costSum}}</h1>
             </nz-card>
         </div>
     </div>
