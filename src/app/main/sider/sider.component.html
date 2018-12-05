@@ -14,11 +14,28 @@
       <i nz-icon type="team"></i>
       <span class="nav-text">账本</span>
     </span>
-        <ul>
-            <li nz-menu-item>默认账本</li>
-            <li nz-menu-item>网购</li>
+        <ul *ngIf="!mobileService.isMobile">
+            <li *ngFor="let account of accountList"
+                nz-popover
+                [nzTitle]="account.Aname"
+                [nzContent]="template"
+                [routerLink]="accountContentURL + account.AID"
+                nz-menu-item>
+                {{account.Aname}}
+                <ng-template #template>
+                    <p>总计: {{account.Sum}} 元</p>
+                    <p>创建时间: {{account.Ctime.toLocaleString()}}</p>
+                    <p>修改时间: {{account.Ltime.toLocaleString()}}</p>
+                </ng-template>
+            </li>
+        </ul>
+        <ul *ngIf="mobileService.isMobile">
+            <li *ngFor="let account of accountList"
+                [routerLink]="accountContentURL + account.AID"
+                nz-menu-item>
+                {{account.Aname}}
+            </li>
         </ul>
     </li>
 </ul>
 <app-add-account-button></app-add-account-button>
-

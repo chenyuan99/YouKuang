@@ -14,7 +14,6 @@ import {SiderComponent} from './main/sider/sider.component';
 import {ContentComponent} from './main/content/content.component';
 import {AppComponent} from './app.component';
 import {AddAccountButtonComponent} from './main/sider/add-account-button/add-account-button.component';
-import {AccountListComponent} from './main/sider/account-list/account-list.component';
 import {AccountContentComponent} from './main/content/account-content/account-content.component';
 
 registerLocaleData(zh);
@@ -27,7 +26,6 @@ registerLocaleData(zh);
         FooterComponent,
         ContentComponent,
         AddAccountButtonComponent,
-        AccountListComponent,
         AccountContentComponent,
     ],
     imports: [

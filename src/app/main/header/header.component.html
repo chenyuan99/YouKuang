@@ -19,7 +19,7 @@
     </div>
 
     <div class="userInfo">
-        <img src="assets/img/logo.jpg">
+        <nz-avatar [nzSize]="64" nzIcon="user"></nz-avatar>
         <span
             *ngIf="!mobileService.isMobile"
             class="user-name-text">{{userInfo.userName}}</span>

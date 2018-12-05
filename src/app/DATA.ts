@@ -23,7 +23,7 @@ export const ACCOUNT_LIST: MyAccount[] = [
     new MyAccount('九月',
         new Date(Date.now()),
         new Date(2018, 9, 1),
-        1000,
+        1234,
         1),
     new MyAccount('十月',
         new Date(Date.now()),
