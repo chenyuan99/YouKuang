@@ -1,3 +1,8 @@
 .col {
     margin-bottom: 20px;
 }
+
+.statistics-row {
+    padding: 24px;
+    background: rgba(245, 247, 250, 1);
+}

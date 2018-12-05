@@ -2,7 +2,6 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {USER_INFO} from './DATA';
 import {CollapseService} from './service/collapse.service';
 import {MobileService} from './service/mobile.service';
-import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
     selector: 'app-root',

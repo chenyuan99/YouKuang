@@ -4,7 +4,6 @@ import {AccountService} from '../../service/account.service';
 import {MyAccount} from '../../entity/MyAccount';
 import {MobileService} from '../../service/mobile.service';
 import {Router} from '@angular/router';
-import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
     selector: 'app-sider',

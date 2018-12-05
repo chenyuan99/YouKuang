@@ -16,13 +16,13 @@
     </span>
         <ul *ngIf="!mobileService.isMobile">
             <li *ngFor="let account of accountList"
-                nz-popover
-                nzPlacement="right"
-                [nzTitle]="account.Aname"
                 [nzContent]="template"
-                [routerLink]="['account', account.AID]"
+                [nzTitle]="account.Aname"
                 [queryParams]="{accountName: account.Aname}"
-                nz-menu-item>
+                [routerLink]="['account', account.AID]"
+                nz-menu-item
+                nz-popover
+                nzPlacement="right">
                 {{account.Aname}}
                 <ng-template #template>
                     <p>总计: {{account.Sum}} 元</p>
@@ -33,8 +33,8 @@
         </ul>
         <ul *ngIf="mobileService.isMobile">
             <li *ngFor="let account of accountList"
-                [routerLink]="['account', account.AID]"
                 [queryParams]="{accountName: account.Aname}"
+                [routerLink]="['account', account.AID]"
                 nz-menu-item>
                 {{account.Aname}}
             </li>
