@@ -19,7 +19,8 @@
                 nz-popover
                 [nzTitle]="account.Aname"
                 [nzContent]="template"
-                [routerLink]="accountContentURL + account.AID"
+                [routerLink]="['account', account.AID]"
+                [queryParams]="{accountName: account.Aname}"
                 nz-menu-item>
                 {{account.Aname}}
                 <ng-template #template>
@@ -31,7 +32,8 @@
         </ul>
         <ul *ngIf="mobileService.isMobile">
             <li *ngFor="let account of accountList"
-                [routerLink]="accountContentURL + account.AID"
+                [routerLink]="['account', account.AID]"
+                [queryParams]="{accountName: account.Aname}"
                 nz-menu-item>
                 {{account.Aname}}
             </li>

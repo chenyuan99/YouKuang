@@ -4,6 +4,7 @@ import {AccountService} from '../../service/account.service';
 import {MyAccount} from '../../entity/MyAccount';
 import {ACCOUNT_LIST} from '../../DATA';
 import {MobileService} from '../../service/mobile.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-sider',
@@ -17,7 +18,8 @@ export class SiderComponent implements OnInit {
 
     constructor(private collapsedService: CollapseService,
                 private accountService: AccountService,
-                private mobileService: MobileService) {
+                private mobileService: MobileService,
+                private routerService: Router) {
     }
 
     ngOnInit() {

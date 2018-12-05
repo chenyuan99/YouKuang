@@ -1,3 +1,32 @@
-<p>
-    account-content works!
-</p>
+<nz-breadcrumb style="margin:16px 0;">
+    <nz-breadcrumb-item>账单</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{accountName}}</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div style="padding:24px; background: rgba(245, 247, 250, 1); min-height: 700px;">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
+        <div class="col" nz-col nzLg="8" nzXs="24">
+            <nz-card
+                [nzLoading]="loading"
+                nzTitle="支出">
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+            </nz-card>
+        </div>
+        <div class="col" nz-col nzLg="8" nzXs="24">
+            <nz-card nzTitle="收入">
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+            </nz-card>
+        </div>
+        <div class="col" nz-col nzLg="8" nzXs="24">
+            <nz-card nzTitle="test Card">
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+            </nz-card>
+        </div>
+    </div>
+</div>

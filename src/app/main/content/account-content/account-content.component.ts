@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from '../../../service/account.service';
 import {AccountItem} from '../../../entity/AccountItem';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-account-content',
@@ -12,15 +11,19 @@ import {filter} from 'rxjs/operators';
 export class AccountContentComponent implements OnInit {
     private accountItemList: AccountItem[] = [];
 
+    private accountName = '';
+
+    loading = true;
+
     constructor(private accountService: AccountService,
-                private routerService: Router) {
+                private routerService: Router,
+                private activatedRouterService: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.routerService.events.pipe(
-            filter(event => event instanceof NavigationEnd)
-        ).subscribe(
-            () => this.accountService.getAccountContentById(this.parseIdFromURL(this.routerService.url))
+        setTimeout(() => this.loading = false, 1000);
+        this.activatedRouterService.queryParamMap.subscribe(
+            value => this.accountName = value.get('accountName')
         );
     }
 
