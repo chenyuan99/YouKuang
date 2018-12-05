@@ -7,21 +7,30 @@
     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
         <div class="col" nz-col nzLg="8" nzXs="24">
             <nz-card
+                [nzHoverable]=true
+                [nzBodyStyle]="{'background': 'rgb(250, 140, 22)'}"
                 [nzLoading]="loading"
-                nzTitle="统计">
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                nzTitle="净收入">
+
+                <h1>{{incomeSum - costSum}} <i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
         <div class="col" nz-col nzLg="8" nzXs="24">
-            <nz-card nzTitle="支出">
-                <h1>{{incomeSum}}</h1>
+            <nz-card
+                [nzHoverable]=true
+                [nzBodyStyle]="{'background': 'rgb(82, 196, 26)'}"
+                [nzLoading]="loading"
+                nzTitle="支出">
+                <h1>{{incomeSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
         <div class="col" nz-col nzLg="8" nzXs="24">
-            <nz-card nzTitle="收入">
-                <h1>{{costSum}}</h1>
+            <nz-card
+                [nzHoverable]=true
+                [nzBodyStyle]="{'background': 'rgb(235, 47, 150)'}"
+                [nzLoading]="loading"
+                nzTitle="收入">
+                <h1>{{costSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
     </div>

@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {USER_INFO} from './DATA';
 import {CollapseService} from './service/collapse.service';
 import {MobileService} from './service/mobile.service';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
     selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
     }
 
     @HostListener('window:resize', ['$event'])
-    onResize() {
-        this.mobileService.isMobile = (<Window>event.target).innerWidth <= 600;
+    private setMobile() {
+        this.mobileService.setMobile();
     }
 }

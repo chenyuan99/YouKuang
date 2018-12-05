@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {CollapseService} from '../../service/collapse.service';
 import {AccountService} from '../../service/account.service';
 import {MyAccount} from '../../entity/MyAccount';
-import {ACCOUNT_LIST} from '../../DATA';
 import {MobileService} from '../../service/mobile.service';
 import {Router} from '@angular/router';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
     selector: 'app-sider',
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./sider.component.css']
 })
 export class SiderComponent implements OnInit {
-    accountList: MyAccount[] = ACCOUNT_LIST;
+    accountList: MyAccount[] = [];
 
     accountContentURL = 'account/';
 
@@ -23,5 +23,9 @@ export class SiderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.accountService.accountList$.subscribe(
+            value => this.accountList = value
+        );
+        this.accountService.nextAllAccount();
     }
 }

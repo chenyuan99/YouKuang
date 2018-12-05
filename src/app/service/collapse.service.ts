@@ -4,12 +4,15 @@ import {Injectable} from '@angular/core';
     providedIn: 'root'
 })
 export class CollapseService {
-    public isCollapsed = false;
+    get isCollapsed(): boolean {
+        return this._isCollapsed;
+    }
+    private _isCollapsed = false;
 
     constructor() {
     }
 
     changeCollapsed() {
-        this.isCollapsed = !this.isCollapsed;
+        this._isCollapsed = !this._isCollapsed;
     }
 }

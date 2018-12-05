@@ -14,8 +14,7 @@ import {SiderComponent} from './main/sider/sider.component';
 import {AppComponent} from './app.component';
 import {AddAccountButtonComponent} from './main/sider/add-account-button/add-account-button.component';
 import {AccountContentComponent} from './main/content/account-content/account-content.component';
-import {RouteReuseStrategy} from '@angular/router';
-import {CustomReuseStrategy} from './CustomReuseStrategy';
+import {HelloComponent} from './main/hello/hello.component';
 
 registerLocaleData(zh);
 
@@ -27,6 +26,7 @@ registerLocaleData(zh);
         FooterComponent,
         AddAccountButtonComponent,
         AccountContentComponent,
+        HelloComponent
     ],
     imports: [
         BrowserModule,
@@ -34,7 +34,7 @@ registerLocaleData(zh);
         BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
-        NgZorroAntdModule
+        NgZorroAntdModule,
     ],
     providers: [
         {provide: NZ_I18N, useValue: zh_CN},

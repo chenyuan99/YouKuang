@@ -17,6 +17,7 @@
         <ul *ngIf="!mobileService.isMobile">
             <li *ngFor="let account of accountList"
                 nz-popover
+                nzPlacement="right"
                 [nzTitle]="account.Aname"
                 [nzContent]="template"
                 [routerLink]="['account', account.AID]"
