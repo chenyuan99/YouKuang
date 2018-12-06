@@ -15,6 +15,7 @@ import {AppComponent} from './app.component';
 import {AddAccountButtonComponent} from './main/sider/add-account-button/add-account-button.component';
 import {AccountContentComponent} from './main/content/account-content/account-content.component';
 import {HelloComponent} from './main/hello/hello.component';
+import { AddAccountFormComponent } from './main/sider/add-account-form/add-account-form.component';
 
 registerLocaleData(zh);
 
@@ -26,7 +27,8 @@ registerLocaleData(zh);
         FooterComponent,
         AddAccountButtonComponent,
         AccountContentComponent,
-        HelloComponent
+        HelloComponent,
+        AddAccountFormComponent
     ],
     imports: [
         BrowserModule,
