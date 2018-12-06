@@ -34,6 +34,7 @@ export class AccountContentComponent implements OnInit {
             value => {
                 this.resetData();
                 this.accountItemList = value;
+                console.log(this.accountItemList);
                 this.accountItemList.forEach(item => {
                     if (item.In_Out === '收入') {
                         this.incomeSum += item.Money;

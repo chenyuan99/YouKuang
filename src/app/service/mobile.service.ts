@@ -14,7 +14,7 @@ export class MobileService implements OnInit {
     }
 
     setMobile() {
-        this.isMobile = (<Window>event.target).innerWidth <= 600;
+        this.isMobile = (<Window>event.target).innerWidth <= 900;
     }
 
 }
