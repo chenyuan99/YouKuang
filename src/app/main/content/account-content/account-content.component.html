@@ -4,8 +4,8 @@
 </nz-breadcrumb>
 
 <div class="statistics-row">
-    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
-        <div class="col" nz-col nzLg="8" nzXs="24">
+    <div nz-row nzType="flex" nzJustify="space-around">
+        <div class="col" nz-col [nzLg]="{span: 5, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <nz-card
                 [nzHoverable]=true
                 [nzBodyStyle]="{'background': 'rgb(250, 140, 22)'}"
@@ -15,7 +15,7 @@
                 <h1>{{incomeSum - costSum}} <i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
-        <div class="col" nz-col nzLg="8" nzXs="24">
+        <div class="col" nz-col [nzLg]="{span: 5, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <nz-card
                 [nzHoverable]=true
                 [nzBodyStyle]="{'background': 'rgb(82, 196, 26)'}"
@@ -24,7 +24,7 @@
                 <h1>{{incomeSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
-        <div class="col" nz-col nzLg="8" nzXs="24">
+        <div class="col" nz-col [nzLg]="{span: 5, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <nz-card
                 [nzHoverable]=true
                 [nzBodyStyle]="{'background': 'rgb(235, 47, 150)'}"
@@ -36,11 +36,41 @@
     </div>
 
     <div nz-row>
-        <div class="col" nz-col [nzLg]="{span: 2, offset: 7}" [nzXs]="{span: 24, offset:0}">
+        <div nz-col class="col">
+            <nz-table
+                [nzPageSize]="2"
+                [nzLoading]="loading">
+                <thead nzSingleSort>
+                <tr>
+                    <th nzShowFilter>支出/收入</th>
+                    <th>记录类型</th>
+                    <th nzShowFilter nzShowSort>金额</th>
+                    <th nzShowSort>时间</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of accountItemList">
+                    <td>{{item.In_Out}}</td>
+                    <td>{{item.Type}}</td>
+                    <td>{{item.Money}}</td>
+                    <td>{{item.Time}}</td>
+                    <td>{{item.Tip}}</td>
+                </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+
+    <!--todo: 移动端表格-->
+
+    <div nz-row nzType="flex" nzJustify="space-around">
+        <div class="col" nz-col [nzLg]="{span: 2, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <button nz-button nzType="primary" nzBlock>记一笔</button>
         </div>
-        <div class="col" nz-col [nzLg]="{span: 2, offset: 7}" [nzXs]="{span: 24, offset:0}">
+        <div class="col" nz-col [nzLg]="{span: 2, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <button nz-button nzType="danger" nzBlock>删除</button>
         </div>
     </div>
+
 </div>
