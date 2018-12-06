@@ -1,3 +1,8 @@
 .add-account-btn-wrapper {
     text-align: center;
 }
+
+.input {
+    max-width: 300px;
+    margin: 15px auto;
+}
