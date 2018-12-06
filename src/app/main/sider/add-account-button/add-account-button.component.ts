@@ -7,6 +7,8 @@ import {CollapseService} from '../../../service/collapse.service';
     styleUrls: ['./add-account-button.component.css']
 })
 export class AddAccountButtonComponent implements OnInit {
+    visible = false;
+
     constructor(private collapsedService: CollapseService) {
     }
 

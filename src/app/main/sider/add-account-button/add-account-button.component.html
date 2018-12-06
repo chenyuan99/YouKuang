@@ -1,9 +1,20 @@
 <div class="add-account-btn-wrapper">
-    <button nz-button
-            nzType="dashed">
+    <button
+        (click)="visible = true"
+        nz-button
+        nzType="dashed">
         <i nz-icon theme="outline" type="plus"></i>
         <span *ngIf="!collapsedService.isCollapsed">
             新建账本
           </span>
     </button>
 </div>
+<nz-drawer
+    [nzPlacement]="'top'"
+    [nzClosable]="false"
+    (nzOnClose)="visible = false"
+    [nzVisible]="visible">
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+</nz-drawer>
