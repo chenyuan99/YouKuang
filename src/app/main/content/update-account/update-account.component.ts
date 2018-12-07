@@ -5,6 +5,7 @@ import {AddItemRequest} from '../../../entity/AddItemRequest';
 import {NzMessageService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {TableLoadingService} from '../../../service/table-loading.service';
 
 @Component({
     selector: 'app-update-account',
@@ -22,7 +23,8 @@ export class UpdateAccountComponent implements OnInit {
                 private accountItemService: AccountItemService,
                 private messageService: NzMessageService,
                 private fb: FormBuilder,
-                private activatedRouter: ActivatedRoute) {
+                private activatedRouter: ActivatedRoute,
+                public tableLoadingService: TableLoadingService) {
     }
 
     ngOnInit() {
@@ -46,6 +48,7 @@ export class UpdateAccountComponent implements OnInit {
     }
 
     onSubmit() {
+        this.tableLoadingService.isLoading = true;
         const $response = this.accountItemService.addItemResponse$.subscribe(
             ok => {
                 if (ok) {

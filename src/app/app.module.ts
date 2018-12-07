@@ -9,7 +9,6 @@ import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import {HeaderComponent} from './main/header/header.component';
-import {FooterComponent} from './main/footer/footer.component';
 import {SiderComponent} from './main/sider/sider.component';
 import {AppComponent} from './app.component';
 import {AddAccountButtonComponent} from './main/sider/add-account-button/add-account-button.component';
@@ -25,7 +24,6 @@ registerLocaleData(zh);
         AppComponent,
         SiderComponent,
         HeaderComponent,
-        FooterComponent,
         AddAccountButtonComponent,
         AccountContentComponent,
         HelloComponent,

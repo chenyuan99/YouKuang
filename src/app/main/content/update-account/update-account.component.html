@@ -49,6 +49,7 @@
                 <button nz-button
                         nzType="primary"
                         (click)="onSubmit()"
+                        [nzLoading]="tableLoadingService.isLoading"
                         nzBlock>确定
                 </button>
             </div>

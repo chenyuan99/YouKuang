@@ -5,6 +5,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {CollapseService} from '../../../service/collapse.service';
 import {MobileService} from '../../../service/mobile.service';
+import {TableLoadingService} from '../../../service/table-loading.service';
 
 @Component({
     selector: 'app-account-content',
@@ -20,13 +21,12 @@ export class AccountContentComponent implements OnInit {
 
     private incomeSum = 0;
 
-    loading = true;
-
     constructor(private accountService: AccountService,
                 private routerService: Router,
                 private activatedRouterService: ActivatedRoute,
                 private collapsedService: CollapseService,
-                private mobileService: MobileService) {
+                private mobileService: MobileService,
+                public loading: TableLoadingService) {
     }
 
     ngOnInit() {
@@ -42,12 +42,12 @@ export class AccountContentComponent implements OnInit {
                     }
                 });
                 setTimeout(() => {
-                    this.loading = false;
+                    this.loading.isLoading = false;
                     if (this.mobileService.isMobile &&
                         !this.collapsedService.isCollapsed) {
                         this.collapsedService.changeCollapsed();
                     }
-                }, 1000);
+                }, 500);
             }
         );
         this.routerService.events.pipe(
@@ -65,7 +65,7 @@ export class AccountContentComponent implements OnInit {
     private resetData() {
         this.costSum = 0;
         this.incomeSum = 0;
-        this.loading = true;
+        this.loading.isLoading = true;
     }
 
     private updateData() {
