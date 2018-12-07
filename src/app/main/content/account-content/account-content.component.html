@@ -35,6 +35,8 @@
         </div>
     </div>
 
+
+    <!--todo: 移动端表格-->
     <div nz-row>
         <div nz-col class="col">
             <nz-table
@@ -62,15 +64,6 @@
         </div>
     </div>
 
-    <!--todo: 移动端表格-->
-
-    <div nz-row nzType="flex" nzJustify="space-around">
-        <div class="col" nz-col [nzLg]="{span: 2, offset: 0}" [nzXs]="{span: 24, offset:0}">
-            <button nz-button nzType="primary" nzBlock>记一笔</button>
-        </div>
-        <div class="col" nz-col [nzLg]="{span: 2, offset: 0}" [nzXs]="{span: 24, offset:0}">
-            <button nz-button nzType="danger" nzBlock>删除</button>
-        </div>
-    </div>
+    <app-update-account></app-update-account>
 
 </div>

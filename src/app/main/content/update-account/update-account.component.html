@@ -1,0 +1,66 @@
+<div nz-row nzType="flex" nzJustify="space-around">
+    <div class="col" nz-col [nzLg]="{span: 2}" [nzXs]="{span: 24}">
+        <button nz-button nzType="primary" (click)="openDrawer()" nzBlock>记一笔</button>
+    </div>
+    <div class="col" nz-col [nzLg]="{span: 2}" [nzXs]="{span: 24}">
+        <button nz-button nzType="danger" nzBlock>删除</button>
+    </div>
+</div>
+
+<nz-drawer [nzClosable]="true"
+           [nzVisible]="drawerIsVisible"
+           [nzMask]="false"
+           [nzPlacement]="this.mobileService.isMobile ? 'bottom' : 'right' "
+           [nzWidth]="512"
+           [nzHeight]="512"
+           nzTitle="记一笔"
+           (nzOnClose)="closeDrawer()">
+    <form nz-form>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="itemType">类型</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <input nz-input name="itemType" type="email" id="itemType">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="money">金额</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <input nz-input name="money" type="text" id="money">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="date">日期</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <input nz-input name="date" type="date" id="date">
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="date">备注</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <textarea nz-input name="tip" type="text" id="tip"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <div class="footer">
+        <div nz-row nzType="flex" nzJustify="space-between">
+            <div nz-col
+                 [nzLg]="{span: 6}"
+                 [nzXs]="{span: 8}">
+                <button nz-button
+                        nzType="primary"
+                        (click)="openDrawer()"
+                        nzBlock>确定
+                </button>
+            </div>
+            <div nz-col
+                 [nzLg]="{span: 6}"
+                 [nzXs]="{span: 8}">
+                <button nz-button
+                        nzType="default"
+                        (click)="drawerIsVisible = false"
+                        nzBlock>取消
+                </button>
+            </div>
+        </div>
+    </div>
+</nz-drawer>

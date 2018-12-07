@@ -37,6 +37,6 @@
 
     <ng-template #modalFooter>
         <button nz-button nzType="default" (click)="closeModal()">取消</button>
-        <button nz-button nzType="primary" (click)="onSubmit()">确定</button>
+        <button nz-button nzType="primary" [nzLoading]="loading" (click)="onSubmit()">确定</button>
     </ng-template>
 </nz-modal>

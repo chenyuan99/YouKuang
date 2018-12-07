@@ -14,6 +14,8 @@ export class AddAccountButtonComponent implements OnInit {
 
     accountName: string;
 
+    loading = false;
+
     budge: string;
 
     constructor(private collapsedService: CollapseService,
@@ -25,6 +27,7 @@ export class AddAccountButtonComponent implements OnInit {
         this.accountService.createAccountResponse$.subscribe(
             response => {
                 console.log(response);
+                this.loading = false;
                 this.isVisible = false;
             },
             error => console.log('error'),
@@ -33,8 +36,10 @@ export class AddAccountButtonComponent implements OnInit {
     }
 
     onSubmit() {
+        this.loading = true;
         if (!this.isValidate(this.accountName, this.budge)) {
             this.message.create('error', '别调皮');
+            this.loading = false;
         } else {
             const request = new CreateAccountRequest(this.accountName, parseInt(this.budge, 10));
             this.accountService.createAccount(request);
@@ -51,6 +56,11 @@ export class AddAccountButtonComponent implements OnInit {
     }
 
     private isValidate(accountName: string, budge: string): boolean {
+        // todo: 验证budge为数字
+        if (!accountName || !budge ||
+            accountName.length <= 0 || accountName.length >= 20 || budge.length <= 0) {
+            return false;
+        }
         return true;
     }
 }
