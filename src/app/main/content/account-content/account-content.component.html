@@ -18,19 +18,19 @@
         <div class="col" nz-col [nzLg]="{span: 5, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <nz-card
                 [nzHoverable]=true
-                [nzBodyStyle]="{'background': 'rgb(82, 196, 26)'}"
+                [nzBodyStyle]="{'background': 'rgb(235, 47, 150)'}"
                 [nzLoading]="loading.isLoading"
                 nzTitle="支出">
-                <h1>{{incomeSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
+                <h1>{{costSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
         <div class="col" nz-col [nzLg]="{span: 5, offset: 0}" [nzXs]="{span: 24, offset:0}">
             <nz-card
                 [nzHoverable]=true
-                [nzBodyStyle]="{'background': 'rgb(235, 47, 150)'}"
+                [nzBodyStyle]="{'background': 'rgb(82, 196, 26)'}"
                 [nzLoading]="loading.isLoading"
                 nzTitle="收入">
-                <h1>{{costSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
+                <h1>{{incomeSum}}<i nz-icon type="pay-circle" theme="outline"></i></h1>
             </nz-card>
         </div>
     </div>
@@ -40,10 +40,14 @@
     <div nz-row>
         <div nz-col class="col">
             <nz-table
-                [nzPageSize]="2"
+                *ngIf="!mobileService.isMobile"
+                #tableData
+                [nzData]="accountItemList"
+                [nzPageSize]="5"
                 [nzLoading]="loading.isLoading">
                 <thead nzSingleSort>
                 <tr>
+                    <th nzShowCheckbox></th>
                     <th nzShowFilter>支出/收入</th>
                     <th>记录类型</th>
                     <th nzShowFilter nzShowSort>金额</th>
@@ -52,12 +56,40 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let item of accountItemList">
-                    <td>{{item.In_Out}}</td>
-                    <td>{{item.Type}}</td>
-                    <td>{{item.Money}}</td>
-                    <td>{{item.Time}}</td>
-                    <td>{{item.Tip}}</td>
+                <tr *ngFor="let item of tableData.data">
+                    <ng-container *ngIf="!item.isToDelete">
+                        <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
+                        <td>{{item.In_Out}}</td>
+                        <td>{{item.Type}}</td>
+                        <td>{{item.Money}}</td>
+                        <td>{{item.Time.toLocaleString()}}</td>
+                        <td>{{item.Tip}}</td>
+                    </ng-container>
+                </tr>
+                </tbody>
+            </nz-table>
+            <nz-table *ngIf="mobileService.isMobile"
+                      #tableData
+                      [nzData]="accountItemList"
+                      [nzPageSize]="5"
+                      [nzLoading]="loading.isLoading">
+                <thead nzSingleSort>
+                <tr>
+                    <th nzShowCheckbox></th>
+                    <th>记录类型</th>
+                    <th nzShowFilter nzShowSort>金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of tableData.data">
+                    <ng-container
+                        *ngIf="!item.isDeleted">
+                        <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
+                        <td>{{item.Type}}</td>
+                        <td (click)="createNotification(item.Type, item.Money, item.Time, item.Tip)">
+                            {{item.Money}}
+                        </td>
+                    </ng-container>
                 </tr>
                 </tbody>
             </nz-table>
@@ -65,5 +97,4 @@
     </div>
 
     <app-update-account></app-update-account>
-
 </div>

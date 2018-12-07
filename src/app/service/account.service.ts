@@ -10,7 +10,15 @@ import {CreateAccountRequest} from '../entity/CreateAccountRequest';
     providedIn: 'root'
 })
 export class AccountService {
+    private deleteAccountItemURL = 'account';
+
     constructor(private _httpClient: HttpClient) {
+    }
+
+    private _deleteResponse$ = new Subject<boolean>();
+
+    get deleteResponse$(): Observable<boolean> {
+        return this._deleteResponse$.asObservable();
     }
 
     private _getAllAccountURL = '/accounts';
@@ -91,6 +99,26 @@ export class AccountService {
         return this._accountContent$.asObservable();
     }
 
+    // todo: 删除账本项
+    deleteAccountItem(accountID: string, items: AccountItem[]) {
+        setTimeout(() => {
+            items.forEach(item => console.log(`删除${this.deleteAccountItemURL}/${accountID}/${item.Ino}`));
+            this._accountToContentMap[accountID].filter(item => item['checked'])
+                                                .forEach(item => {
+                                                    item['isDeleted'] = true;
+                                                    item['checked'] = false;
+                                                });
+            this._accountContent$.next(
+                this._accountToContentMap[accountID].filter(item => !item['isDeleted'])
+            );
+            this._deleteResponse$.next(true);
+        }, 500);
+        /*        this.httpClient.delete(`${this.deleteAccountItemURL}/${accountID}/${item.Ino}`).subscribe(
+					response => console.log(response)
+				);*/
+    }
+
+    // todo: 新建账本
     createAccount(request: CreateAccountRequest) {
         /*        this._httpClient.post<Response>(this._createAccountURL, request).subscribe(
 					response => {
@@ -110,12 +138,13 @@ export class AccountService {
 				return this.createAccountResponse$;*/
         setTimeout(() => {
             this._accountList.push(new MyAccount(
-                'newAccount',
+                request.name,
                 new Date(),
                 new Date(),
-                1000,
-                2333)
+                request.budget,
+                this._accountList.length + 1)
             );
+            this.accountToContentMap[String(this._accountList.length)] = [];
             this.nextAllAccount();
             this._createAccountResponse$.next(true);
         }, 1000);
@@ -123,7 +152,7 @@ export class AccountService {
 
     nextAccountContent(id: string) {
         if (this._accountToContentMap[id]) {
-            this._accountContent$.next(this._accountToContentMap[String(id)]);
+            this._accountContent$.next([...this._accountToContentMap[String(id)].filter(item => !item['isDeleted'])]);
             return;
         }
         this._httpClient.get<AccountItem[]>(this._getAccountByIdURL + id).subscribe(

@@ -6,6 +6,7 @@ import {filter} from 'rxjs/operators';
 import {CollapseService} from '../../../service/collapse.service';
 import {MobileService} from '../../../service/mobile.service';
 import {TableLoadingService} from '../../../service/table-loading.service';
+import {NzNotificationService} from 'ng-zorro-antd';
 
 @Component({
     selector: 'app-account-content',
@@ -26,7 +27,8 @@ export class AccountContentComponent implements OnInit {
                 private activatedRouterService: ActivatedRoute,
                 private collapsedService: CollapseService,
                 private mobileService: MobileService,
-                public loading: TableLoadingService) {
+                public loading: TableLoadingService,
+                private notification: NzNotificationService) {
     }
 
     ngOnInit() {
@@ -35,12 +37,17 @@ export class AccountContentComponent implements OnInit {
                 this.resetData();
                 this.accountItemList = value;
                 this.accountItemList.forEach(item => {
-                    if (item.In_Out === '收入') {
-                        this.incomeSum += item.Money;
-                    } else {
-                        this.costSum += item.Money;
-                    }
+                    item['checked'] = false;
+                    item['itDeleted'] = false;
                 });
+                this.incomeSum = this.accountItemList
+                                     .filter(item => item.In_Out === '收入')
+                                     .map(item => item.Money)
+                                     .reduce((pre, curr) => pre + curr, 0);
+                this.costSum = this.accountItemList
+                                   .filter(item => item.In_Out === '支出')
+                                   .map(item => item.Money)
+                                   .reduce((pre, curr) => pre + curr, 0);
                 setTimeout(() => {
                     this.loading.isLoading = false;
                     if (this.mobileService.isMobile &&
@@ -60,6 +67,12 @@ export class AccountContentComponent implements OnInit {
         // 实在没有办法了T_T
         this.updateData();
 
+    }
+
+    // item.Type, item.Money, item.Time, item.Tip
+    public createNotification(type: string, money: number, time: Date, tip: string) {
+        this.notification.create('info', tip,
+            `时间: ${time.toLocaleString()}   类型: ${type}`);
     }
 
     private resetData() {

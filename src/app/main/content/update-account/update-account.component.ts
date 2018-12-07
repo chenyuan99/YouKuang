@@ -6,6 +6,7 @@ import {NzMessageService} from 'ng-zorro-antd';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {TableLoadingService} from '../../../service/table-loading.service';
+import {AccountService} from '../../../service/account.service';
 
 @Component({
     selector: 'app-update-account',
@@ -13,14 +14,15 @@ import {TableLoadingService} from '../../../service/table-loading.service';
     styleUrls: ['./update-account.component.css']
 })
 export class UpdateAccountComponent implements OnInit {
-    drawerIsVisible = false;
-
     private accountID;
+
+    drawerIsVisible = false;
 
     validateForm: FormGroup;
 
     constructor(public mobileService: MobileService,
                 private accountItemService: AccountItemService,
+                private accountService: AccountService,
                 private messageService: NzMessageService,
                 private fb: FormBuilder,
                 private activatedRouter: ActivatedRoute,
@@ -66,5 +68,31 @@ export class UpdateAccountComponent implements OnInit {
                 this.validateForm.value['itemType'],
                 this.validateForm.value['datePickerTime'],
                 '嘤'), this.accountID);
+    }
+
+    deleteCheckedItem() {
+        const toDeleteItem = this.accountService.accountToContentMap[this.accountID]
+            .filter(item => item['checked']);
+        if (toDeleteItem.length !== 0) {
+            const $deleteResponse = this.accountService.deleteResponse$.subscribe(
+                ok => {
+                    if (ok) {
+                        this.messageService.create('success', '删除成功');
+                    } else {
+                        this.messageService.create('error', '删除失败');
+                    }
+                    $deleteResponse.unsubscribe();
+                }
+            );
+            this.accountService.deleteAccountItem(this.accountID, toDeleteItem);
+        } else {
+            this.messageService.create('info', '别调皮');
+        }
+    }
+
+    cancelDelete() {
+        this.accountService.accountToContentMap[this.accountID]
+            .filter(item => item['checked'])
+            .forEach(item => item['checked'] = false);
     }
 }

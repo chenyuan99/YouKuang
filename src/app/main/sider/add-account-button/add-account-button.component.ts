@@ -24,15 +24,6 @@ export class AddAccountButtonComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.accountService.createAccountResponse$.subscribe(
-            response => {
-                console.log(response);
-                this.loading = false;
-                this.isVisible = false;
-            },
-            error => console.log('error'),
-            () => console.log('complete')
-        );
     }
 
     onSubmit() {
@@ -41,6 +32,14 @@ export class AddAccountButtonComponent implements OnInit {
             this.message.create('error', '别调皮');
             this.loading = false;
         } else {
+            const $createAccountResponse = this.accountService.createAccountResponse$.subscribe(
+                response => {
+                    console.log(response);
+                    this.loading = false;
+                    this.isVisible = false;
+                    $createAccountResponse.unsubscribe();
+                }
+            );
             const request = new CreateAccountRequest(this.accountName, parseInt(this.budge, 10));
             this.accountService.createAccount(request);
         }

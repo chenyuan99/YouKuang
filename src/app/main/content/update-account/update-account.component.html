@@ -3,13 +3,21 @@
         <button nz-button nzType="primary" (click)="openDrawer()" nzBlock>记一笔</button>
     </div>
     <div class="col" nz-col [nzLg]="{span: 2}" [nzXs]="{span: 24}">
-        <button nz-button nzType="danger" nzBlock>删除</button>
+            <button
+                nz-button
+                nzType="danger"
+                nzBlock
+                nz-popconfirm
+                nzTitle="确定要删除吗"
+               (nzOnConfirm)="deleteCheckedItem()"
+               (nzOnCancel)="cancelDelete()">删除
+            </button>
     </div>
 </div>
 
 <nz-drawer [nzClosable]="true"
            [nzVisible]="drawerIsVisible"
-           [nzMask]="false"
+           [nzMask]="true"
            [nzPlacement]="this.mobileService.isMobile ? 'bottom' : 'right' "
            [nzWidth]="512"
            [nzHeight]="512"
