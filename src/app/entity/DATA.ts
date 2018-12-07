@@ -1,7 +1,7 @@
-import {UserInfo} from './entity/UserInfo';
-import {AccountItemType} from './entity/AccountItemType';
-import {MyAccount} from './entity/MyAccount';
-import {AccountItem} from './entity/AccountItem';
+import {UserInfo} from './UserInfo';
+import {AccountItemType} from './AccountItemType';
+import {MyAccount} from './MyAccount';
+import {AccountItem} from './AccountItem';
 
 export const USER_INFO: UserInfo = new UserInfo(
     'Admin',

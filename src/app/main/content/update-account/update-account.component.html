@@ -15,29 +15,29 @@
            [nzHeight]="512"
            nzTitle="记一笔"
            (nzOnClose)="closeDrawer()">
-    <form nz-form>
+    <form nz-form [formGroup]="validateForm">
         <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="itemType">类型</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <input nz-input name="itemType" type="email" id="itemType">
+                <input nz-input formControlName="itemType" name="itemType" type="email" id="itemType">
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="money">金额</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <input nz-input name="money" type="text" id="money">
+                <input nz-input formControlName="money" name="money" type="text" id="money">
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="date">日期</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <input nz-input name="date" type="date" id="date">
+                <nz-date-picker nzShowTime formControlName="datePickerTime"></nz-date-picker>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="date">备注</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <textarea nz-input name="tip" type="text" id="tip"></textarea>
+                <textarea nz-input formControlName="tip" name="tip" type="text" id="tip"></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
@@ -48,7 +48,7 @@
                  [nzXs]="{span: 8}">
                 <button nz-button
                         nzType="primary"
-                        (click)="openDrawer()"
+                        (click)="onSubmit()"
                         nzBlock>确定
                 </button>
             </div>

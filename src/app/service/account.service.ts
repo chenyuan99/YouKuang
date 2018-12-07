@@ -3,7 +3,7 @@ import {MyAccount} from '../entity/MyAccount';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AccountItem} from '../entity/AccountItem';
-import {ACCOUNT_LIST, ACCOUNT_TO_CONTENT} from '../DATA';
+import {ACCOUNT_LIST, ACCOUNT_TO_CONTENT} from '../entity/DATA';
 import {CreateAccountRequest} from '../entity/CreateAccountRequest';
 
 @Injectable({
@@ -121,8 +121,8 @@ export class AccountService {
         }, 1000);
     }
 
-    nextAccountContent(id: number) {
-        if (this._accountToContentMap[String(id)] != null) {
+    nextAccountContent(id: string) {
+        if (this._accountToContentMap[id]) {
             this._accountContent$.next(this._accountToContentMap[String(id)]);
             return;
         }

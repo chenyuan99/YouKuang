@@ -34,7 +34,6 @@ export class AccountContentComponent implements OnInit {
             value => {
                 this.resetData();
                 this.accountItemList = value;
-                console.log(this.accountItemList);
                 this.accountItemList.forEach(item => {
                     if (item.In_Out === '收入') {
                         this.incomeSum += item.Money;
@@ -71,7 +70,7 @@ export class AccountContentComponent implements OnInit {
 
     private updateData() {
         this.accountName = this.activatedRouterService.snapshot.queryParamMap.get('accountName');
-        const accountID = parseInt(this.activatedRouterService.snapshot.paramMap.get('id'), 10);
+        const accountID = this.activatedRouterService.snapshot.paramMap.get('id');
         this.accountService.nextAccountContent(accountID);
     }
 }

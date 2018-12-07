@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {USER_INFO} from './DATA';
+import {USER_INFO} from './entity/DATA';
 import {CollapseService} from './service/collapse.service';
 import {MobileService} from './service/mobile.service';
 
