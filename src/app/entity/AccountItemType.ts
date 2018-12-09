@@ -1,18 +1,18 @@
 export class AccountItemType {
-    private readonly _TypeID: number;
+    private readonly _typeID: number;
 
-    private readonly _Type: string;
+    private readonly _type: string;
 
     constructor(TypeID: number, Type: string) {
-        this._TypeID = TypeID;
-        this._Type = Type;
+        this._typeID = TypeID;
+        this._type = Type;
     }
 
-    get TypeID(): number {
-        return this._TypeID;
+    get typeID(): number {
+        return this._typeID;
     }
 
-    get Type(): string {
-        return this._Type;
+    get type(): string {
+        return this._type;
     }
 }

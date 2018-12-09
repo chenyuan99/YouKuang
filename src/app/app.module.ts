@@ -14,8 +14,10 @@ import {AppComponent} from './app.component';
 import {AddAccountButtonComponent} from './main/sider/add-account-button/add-account-button.component';
 import {AccountContentComponent} from './main/content/account-content/account-content.component';
 import {HelloComponent} from './main/hello/hello.component';
-import { AddAccountFormComponent } from './main/sider/add-account-form/add-account-form.component';
-import { UpdateAccountComponent } from './main/content/update-account/update-account.component';
+import {AddAccountFormComponent} from './main/sider/add-account-form/add-account-form.component';
+import {UpdateAccountComponent} from './main/content/update-account/update-account.component';
+import {StatisticComponent} from './statistic/statistic.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 registerLocaleData(zh);
 
@@ -28,7 +30,8 @@ registerLocaleData(zh);
         AccountContentComponent,
         HelloComponent,
         AddAccountFormComponent,
-        UpdateAccountComponent
+        UpdateAccountComponent,
+        StatisticComponent
     ],
     imports: [
         BrowserModule,
@@ -38,6 +41,7 @@ registerLocaleData(zh);
         HttpClientModule,
         NgZorroAntdModule,
         ReactiveFormsModule,
+        NgxChartsModule
     ],
     providers: [
         {provide: NZ_I18N, useValue: zh_CN},

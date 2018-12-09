@@ -41,12 +41,12 @@ export class AccountContentComponent implements OnInit {
                     item['itDeleted'] = false;
                 });
                 this.incomeSum = this.accountItemList
-                                     .filter(item => item.In_Out === '收入')
-                                     .map(item => item.Money)
+                                     .filter(item => item.inOut === '收入')
+                                     .map(item => item.money)
                                      .reduce((pre, curr) => pre + curr, 0);
                 this.costSum = this.accountItemList
-                                   .filter(item => item.In_Out === '支出')
-                                   .map(item => item.Money)
+                                   .filter(item => item.inOut === '支出')
+                                   .map(item => item.money)
                                    .reduce((pre, curr) => pre + curr, 0);
                 setTimeout(() => {
                     this.loading.isLoading = false;
@@ -69,7 +69,7 @@ export class AccountContentComponent implements OnInit {
 
     }
 
-    // item.Type, item.Money, item.Time, item.Tip
+    // item.type, item.money, item.time, item.tip
     public createNotification(type: string, money: number, time: Date, tip: string) {
         this.notification.create('info', tip,
             `时间: ${time.toLocaleString()}   类型: ${type}`);

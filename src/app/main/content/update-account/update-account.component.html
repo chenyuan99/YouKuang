@@ -1,17 +1,17 @@
-<div nz-row nzType="flex" nzJustify="space-around">
-    <div class="col" nz-col [nzLg]="{span: 2}" [nzXs]="{span: 24}">
-        <button nz-button nzType="primary" (click)="openDrawer()" nzBlock>记一笔</button>
+<div nz-row nzJustify="space-around" nzType="flex">
+    <div [nzLg]="{span: 2}" [nzXs]="{span: 24}" class="col" nz-col>
+        <button (click)="openDrawer()" nz-button nzBlock nzType="primary">记一笔</button>
     </div>
-    <div class="col" nz-col [nzLg]="{span: 2}" [nzXs]="{span: 24}">
-            <button
-                nz-button
-                nzType="danger"
-                nzBlock
-                nz-popconfirm
-                nzTitle="确定要删除吗"
-               (nzOnConfirm)="deleteCheckedItem()"
-               (nzOnCancel)="cancelDelete()">删除
-            </button>
+    <div [nzLg]="{span: 2}" [nzXs]="{span: 24}" class="col" nz-col>
+        <button
+            (nzOnCancel)="cancelDelete()"
+            (nzOnConfirm)="deleteCheckedItem()"
+            nz-button
+            nz-popconfirm
+            nzBlock
+            nzTitle="确定要删除吗"
+            nzType="danger">删除
+        </button>
     </div>
 </div>
 

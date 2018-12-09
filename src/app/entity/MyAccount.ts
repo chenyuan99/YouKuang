@@ -3,61 +3,61 @@
  */
 export class MyAccount {
     constructor(Aname: string, Ltime: Date, Ctime: Date, Sum: number, AID: number) {
-        this._Aname = Aname;
-        this._Ltime = Ltime;
-        this._Ctime = Ctime;
-        this._Sum = Sum;
-        this._AID = AID;
+        this._accountName = Aname;
+        this._lastModifiedTime = Ltime;
+        this._createdTime = Ctime;
+        this._sum = Sum;
+        this._accountID = AID;
     }
 
-    private _Aname: string;
+    private _accountName: string;
 
-    get Aname(): string {
-        return this._Aname;
+    get accountName(): string {
+        return this._accountName;
     }
 
-    set Aname(value: string) {
-        this._Aname = value;
+    set accountName(value: string) {
+        this._accountName = value;
     }
 
-    private _Ltime: Date;
+    private _lastModifiedTime: Date;
 
-    get Ltime(): Date {
-        return this._Ltime;
+    get lastModifiedTime(): Date {
+        return this._lastModifiedTime;
     }
 
-    set Ltime(value: Date) {
-        this._Ltime = value;
+    set lastModifiedTime(value: Date) {
+        this._lastModifiedTime = value;
     }
 
-    private _Ctime: Date;
+    private _createdTime: Date;
 
-    get Ctime(): Date {
-        return this._Ctime;
+    get createdTime(): Date {
+        return this._createdTime;
     }
 
-    set Ctime(value: Date) {
-        this._Ctime = value;
+    set createdTime(value: Date) {
+        this._createdTime = value;
     }
 
-    private _Sum: number;
+    private _sum: number;
 
-    get Sum(): number {
-        return this._Sum;
+    get sum(): number {
+        return this._sum;
     }
 
-    set Sum(value: number) {
-        this._Sum = value;
+    set sum(value: number) {
+        this._sum = value;
     }
 
-    private _AID: number;
+    private _accountID: number;
 
-    get AID(): number {
-        return this._AID;
+    get accountID(): number {
+        return this._accountID;
     }
 
-    set AID(value: number) {
-        this._AID = value;
+    set accountID(value: number) {
+        this._accountID = value;
     }
 
 }

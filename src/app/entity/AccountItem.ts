@@ -1,70 +1,70 @@
 export class AccountItem {
-    constructor(Ino: number, In_Out: string, Money: number, Type: string, Time: Date, Tip: string) {
-        this._Ino = Ino;
-        this._In_Out = In_Out;
-        this._Money = Money;
-        this._Type = Type;
-        this._Time = Time;
-        this._Tip = Tip;
+    constructor(iNo: number, inOut: string, money: number, type: string, time: Date, tip: string) {
+        this._iNo = iNo;
+        this._inOut = inOut;
+        this._money = money;
+        this._type = type;
+        this._time = time;
+        this._tip = tip;
     }
 
-    private _Ino: number;
+    private _iNo: number;
 
-    get Ino(): number {
-        return this._Ino;
+    get iNo(): number {
+        return this._iNo;
     }
 
-    set Ino(value: number) {
-        this._Ino = value;
+    set iNo(value: number) {
+        this._iNo = value;
     }
 
-    private _In_Out: string;
+    private _inOut: string;
 
-    get In_Out(): string {
-        return this._In_Out;
+    get inOut(): string {
+        return this._inOut;
     }
 
-    set In_Out(value: string) {
-        this._In_Out = value;
+    set inOut(value: string) {
+        this._inOut = value;
     }
 
-    private _Money: number;
+    private _money: number;
 
-    get Money(): number {
-        return this._Money;
+    get money(): number {
+        return this._money;
     }
 
-    set Money(value: number) {
-        this._Money = value;
+    set money(value: number) {
+        this._money = value;
     }
 
-    private _Type: string;
+    private _type: string;
 
-    get Type(): string {
-        return this._Type;
+    get type(): string {
+        return this._type;
     }
 
-    set Type(value: string) {
-        this._Type = value;
+    set type(value: string) {
+        this._type = value;
     }
 
-    private _Time: Date;
+    private _time: Date;
 
-    get Time(): Date {
-        return this._Time;
+    get time(): Date {
+        return this._time;
     }
 
-    set Time(value: Date) {
-        this._Time = value;
+    set time(value: Date) {
+        this._time = value;
     }
 
-    private _Tip: string;
+    private _tip: string;
 
-    get Tip(): string {
-        return this._Tip;
+    get tip(): string {
+        return this._tip;
     }
 
-    set Tip(value: string) {
-        this._Tip = value;
+    set tip(value: string) {
+        this._tip = value;
     }
 }

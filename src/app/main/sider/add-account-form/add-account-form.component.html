@@ -1,29 +1,30 @@
 <div>
     <!--todo: 表单验证-->
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <form (ngSubmit)="submitForm()" [formGroup]="validateForm" nz-form>
         <nz-form-item>
             <nz-form-label [nzSpan]="4">
                 账本名
             </nz-form-label>
             <nz-form-control [nzSpan]="8">
-                <input type="text"
-                       nz-input formControlName="accountName"
-                       placeholder="请输入账本名">
-                <nz-form-explain *ngIf="validateForm.get('accountName').dirty && validateForm.get('accountName').errors">
+                <input formControlName="accountName"
+                       nz-input placeholder="请输入账本名"
+                       type="text">
+                <nz-form-explain
+                    *ngIf="validateForm.get('accountName').dirty && validateForm.get('accountName').errors">
                     Please input your name
                 </nz-form-explain>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="4"
-                           nzRequired
-                           nzFor="budge">
+                           nzFor="budge"
+                           nzRequired>
                 预算
             </nz-form-label>
             <nz-form-control [nzSpan]="8">
-                <input type="text"
-                       nz-input formControlName="budge"
-                       placeholder="请输入该账本预算">
+                <input formControlName="budge"
+                       nz-input placeholder="请输入该账本预算"
+                       type="text">
                 <nz-form-explain *ngIf="validateForm.get('budge').dirty && validateForm.get('budge').errors">
                     Please input your nickname
                 </nz-form-explain>
@@ -31,7 +32,7 @@
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-control [nzSpan]="8" [nzOffset]="4">
+            <nz-form-control [nzOffset]="4" [nzSpan]="8">
                 <button nz-button nzType="primary">Check</button>
             </nz-form-control>
         </nz-form-item>

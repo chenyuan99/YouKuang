@@ -15,6 +15,12 @@ export class AccountService {
     constructor(private _httpClient: HttpClient) {
     }
 
+    private _accountIdToName: { [key: number]: string } = {};
+
+    get accountIdToName(): { [p: number]: string } {
+        return this._accountIdToName;
+    }
+
     private _deleteResponse$ = new Subject<boolean>();
 
     get deleteResponse$(): Observable<boolean> {
@@ -77,11 +83,11 @@ export class AccountService {
 
     private _accountToContentMap: { [key: string]: AccountItem[] } = ACCOUNT_TO_CONTENT;
 
-    get accountToContentMap(): { [p: string]: AccountItem[] } {
+    get accountToContentMap(): { [key: string]: AccountItem[] } {
         return this._accountToContentMap;
     }
 
-    set accountToContentMap(value: { [p: string]: AccountItem[] }) {
+    set accountToContentMap(value: { [key: string]: AccountItem[] }) {
         this._accountToContentMap = value;
     }
 
@@ -102,7 +108,7 @@ export class AccountService {
     // todo: 删除账本项
     deleteAccountItem(accountID: string, items: AccountItem[]) {
         setTimeout(() => {
-            items.forEach(item => console.log(`删除${this.deleteAccountItemURL}/${accountID}/${item.Ino}`));
+            items.forEach(item => console.log(`删除${this.deleteAccountItemURL}/${accountID}/${item.iNo}`));
             this._accountToContentMap[accountID].filter(item => item['checked'])
                                                 .forEach(item => {
                                                     item['isDeleted'] = true;
@@ -113,7 +119,7 @@ export class AccountService {
             );
             this._deleteResponse$.next(true);
         }, 500);
-        /*        this.httpClient.delete(`${this.deleteAccountItemURL}/${accountID}/${item.Ino}`).subscribe(
+        /*        this.httpClient.delete(`${this.deleteAccountItemURL}/${accountID}/${item.iNo}`).subscribe(
 					response => console.log(response)
 				);*/
     }
@@ -164,6 +170,9 @@ export class AccountService {
     }
 
     nextAllAccount() {
+        this._accountList.forEach(
+            account => this._accountIdToName[account.accountID] = account.accountName
+        );
         if (this._accountList.length !== 0) {
             this._accountList$.next(this._accountList);
             return;
@@ -172,6 +181,9 @@ export class AccountService {
             value => {
                 this._accountList = value;
                 this._accountList$.next(this._accountList);
+                this._accountList.forEach(
+                    account => this._accountIdToName[account.accountID] = account.accountName
+                );
             }
         );
     }

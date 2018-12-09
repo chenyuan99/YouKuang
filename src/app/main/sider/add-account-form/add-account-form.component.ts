@@ -14,8 +14,8 @@ export class AddAccountFormComponent implements OnInit {
 
     ngOnInit() {
         this.validateForm = this.fb.group({
-            note  : [ null, [ Validators.required ] ],
-            gender: [ null, [ Validators.required ] ]
+            note: [null, [Validators.required]],
+            gender: [null, [Validators.required]]
         });
     }
 

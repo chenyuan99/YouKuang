@@ -57,13 +57,13 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of tableData.data">
-                    <ng-container *ngIf="!item.isToDelete">
+                    <ng-container *ngIf="!item.isDeleted">
                         <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
-                        <td>{{item.In_Out}}</td>
-                        <td>{{item.Type}}</td>
-                        <td>{{item.Money}}</td>
-                        <td>{{item.Time.toLocaleString()}}</td>
-                        <td>{{item.Tip}}</td>
+                        <td>{{item.inOut}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.money}}</td>
+                        <td>{{item.time.toLocaleString()}}</td>
+                        <td>{{item.tip}}</td>
                     </ng-container>
                 </tr>
                 </tbody>
@@ -85,9 +85,9 @@
                     <ng-container
                         *ngIf="!item.isDeleted">
                         <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
-                        <td>{{item.Type}}</td>
-                        <td (click)="createNotification(item.Type, item.Money, item.Time, item.Tip)">
-                            {{item.Money}}
+                        <td>{{item.type}}</td>
+                        <td (click)="createNotification(item.type, item.money, item.time, item.tip)">
+                            {{item.money}}
                         </td>
                     </ng-container>
                 </tr>
