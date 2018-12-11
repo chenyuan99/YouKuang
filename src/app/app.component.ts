@@ -1,7 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {USER_INFO} from './entity/DATA';
-import {CollapseService} from './service/collapse.service';
-import {MobileService} from './service/mobile.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -9,18 +6,10 @@ import {MobileService} from './service/mobile.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'YouKuang';
-
-    constructor(public collapsedService: CollapseService,
-                public mobileService: MobileService) {
+    constructor() {
     }
 
     ngOnInit(): void {
-        console.log(JSON.stringify(USER_INFO).replace(/_/g, ''));
-    }
-
-    @HostListener('window:resize', ['$event'])
-    private setMobile() {
-        this.mobileService.setMobile();
+        document.body.style.backgroundColor = '#f0f2f5';
     }
 }

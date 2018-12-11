@@ -1,18 +1,1 @@
-<nz-layout style="height: 100%;">
-    <nz-header style="padding: 0;background: #1890ff">
-        <app-header></app-header>
-    </nz-header>
-    <nz-layout>
-        <nz-sider
-            [(nzCollapsed)]="collapsedService.isCollapsed"
-            [nzCollapsedWidth]="mobileService.isMobile ? 0 : 80"
-            [nzWidth]="170"
-            style="background: white">
-            <app-sider></app-sider>
-        </nz-sider>
-        <nz-content>
-            <router-outlet></router-outlet>
-        </nz-content>
-    </nz-layout>
-</nz-layout>
-
+<router-outlet></router-outlet>

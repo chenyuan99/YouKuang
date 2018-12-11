@@ -1,0 +1,38 @@
+.header {
+    text-align: center;
+}
+
+.header-row {
+    padding-top: 160px;
+    padding-bottom: 25px;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-text {
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
+    margin-left: 15px;
+}
+
+.logo img {
+    width: 60px;
+    border-radius: 50%;
+}
+
+.footer-row .text {
+    text-align: center;
+}
+
+.register-link {
+    float: right;
+}
+
+.footer-row {
+    padding-top: 20px;
+}

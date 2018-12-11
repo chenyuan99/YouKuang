@@ -21,6 +21,7 @@
     "@angular/router": "~7.1.0",
     "@swimlane/ngx-charts": "^10.0.0",
     "@types/d3-shape": "^1.2.6",
+    "canvas-nest.js": "^2.0.4",
     "core-js": "^2.5.4",
     "d3": "^5.7.0",
     "ng-zorro-antd": "^1.8.1",

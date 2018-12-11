@@ -1,10 +1,11 @@
-import {Injectable, OnInit} from '@angular/core';
+import {HostListener, Injectable, OnInit} from '@angular/core';
+import {fromEvent, Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MobileService implements OnInit {
-    public isMobile = true;
+    public isMobile = window.innerWidth <= 900;
 
     constructor() {
     }
