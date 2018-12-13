@@ -15,6 +15,26 @@
             nzType="primary">
             <i [type]="collapsedService.isCollapsed ? 'menu-unfold' : 'menu-fold'" nz-icon></i>
         </button>
+    </div>
+
+    <div
+        *ngIf="mobileService.isMobile"
+        class="search-button">
+        <nz-dropdown
+            [nzClickHide]="false"
+            [nzTrigger]="'click'">
+            <button
+                nz-button
+                nz-dropdown
+                nzType="primary">
+                <i type="search" nz-icon  style="font-size: 15px"></i>
+            </button>
+            <ul nz-menu>
+                <li nz-menu-item>
+                    <app-search></app-search>
+                </li>
+            </ul>
+        </nz-dropdown>
 
     </div>
 
@@ -24,4 +44,8 @@
             *ngIf="!mobileService.isMobile"
             class="user-name-text">{{userInfo.userName}}</span>
     </div>
+
+    <app-search
+        class="search"
+        *ngIf="!mobileService.isMobile"></app-search>
 </div>

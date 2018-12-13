@@ -1,0 +1,27 @@
+<div
+    [ngStyle]="style"
+    class="search-input">
+
+    <nz-input-group [nzPrefix]="prefix">
+        <input
+            [nzSize]="'large'"
+            placeholder="搜索账本"
+            nz-input
+            [(ngModel)]="inputValue"
+            (input)="onInput($event.target?.value)"
+            [nzAutocomplete]="auto">
+    </nz-input-group>
+
+    <nz-autocomplete nzBackfill #auto>
+        <nz-auto-option
+            *ngFor="let option of options"
+            [queryParams]="{accountName: option.accountName}"
+            [routerLink]="['account', option.accountID]"
+            [nzValue]="option.accountName">
+            {{option.accountName}}
+        </nz-auto-option>
+    </nz-autocomplete>
+    <ng-template #prefix>
+        <i nz-icon type="search" theme="outline"></i>
+    </ng-template>
+</div>

@@ -20,6 +20,7 @@ import {StatisticComponent} from './statistic/statistic.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main/main.component';
+import { SearchComponent } from './main/header/search/search.component';
 
 registerLocaleData(zh);
 
@@ -35,7 +36,8 @@ registerLocaleData(zh);
         UpdateAccountComponent,
         StatisticComponent,
         LoginComponent,
-        MainComponent
+        MainComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,

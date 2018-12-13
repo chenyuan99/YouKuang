@@ -55,7 +55,10 @@
             [nzXs]="nzXs"
             [nzLg]="nzLg"
             nz-col>
-            <button nz-button nzBlock [nzType]="'primary'" (click)="submitForm()">登录</button>
+            <button nz-button nzBlock
+                    [nzLoading]="login"
+                    [nzType]="'primary'"
+                    (click)="submitForm()">登录</button>
             <a class="register-link" href="">马上注册!</a>
         </div>
     </div>

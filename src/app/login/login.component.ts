@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../service/login.service';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import {NzMessageService} from 'ng-zorro-antd';
 
 @Component({
     selector: 'app-login',
@@ -10,6 +11,8 @@ import {ActivatedRoute, Route, Router} from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
+    login = false;
+
     nzLg = {span: 4, offset: 10};
 
     nzXs = {span: 20, offset: 2};
@@ -18,7 +21,8 @@ export class LoginComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private loginService: LoginService,
-                private routerService: Router) {
+                private routerService: Router,
+                private messageService: NzMessageService) {
     }
 
     submitForm(): void {
@@ -36,13 +40,17 @@ export class LoginComponent implements OnInit {
         const $response = this.loginService.response$.subscribe(
             response => {
                 if (response) {
-                    console.log(userName, password);
-                    $response.unsubscribe();
-                    this.routerService.navigateByUrl('main');
+                    this.messageService.create('success', '登录成功');
+                    setTimeout(() => this.routerService.navigateByUrl('main'), 500);
+                } else {
+                    this.messageService.create('error', '登录失败');
                 }
+                $response.unsubscribe();
+                this.login = false;
             }
         );
         this.loginService.login(userName, password);
+        this.login = true;
     }
 
     ngOnInit() {

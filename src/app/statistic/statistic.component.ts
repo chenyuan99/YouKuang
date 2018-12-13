@@ -13,7 +13,7 @@ export class StatisticComponent implements OnInit {
 
     dataList: AccountChartData[] = [];
 
-    mobileView = [300, 200];
+    mobileView = [280, 200];
 
     deskView = [600, 400];
 
