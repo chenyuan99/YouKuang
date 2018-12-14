@@ -1,5 +1,4 @@
-import {HostListener, Injectable, OnInit} from '@angular/core';
-import {fromEvent, Observable} from 'rxjs';
+import {Injectable, OnInit} from '@angular/core';
 
 @Injectable({
     providedIn: 'root'

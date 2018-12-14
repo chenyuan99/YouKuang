@@ -18,9 +18,9 @@ import {AddAccountFormComponent} from './main/sider/add-account-form/add-account
 import {UpdateAccountComponent} from './main/content/update-account/update-account.component';
 import {StatisticComponent} from './statistic/statistic.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import { LoginComponent } from './login/login.component';
-import { MainComponent } from './main/main/main.component';
-import { SearchComponent } from './main/header/search/search.component';
+import {LoginComponent} from './login/login.component';
+import {MainComponent} from './main/main/main.component';
+import {SearchComponent} from './main/header/search/search.component';
 
 registerLocaleData(zh);
 

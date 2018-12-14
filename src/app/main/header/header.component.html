@@ -27,7 +27,7 @@
                 nz-button
                 nz-dropdown
                 nzType="primary">
-                <i type="search" nz-icon  style="font-size: 15px"></i>
+                <i nz-icon style="font-size: 15px" type="search"></i>
             </button>
             <ul nz-menu>
                 <li nz-menu-item>
@@ -46,6 +46,6 @@
     </div>
 
     <app-search
-        class="search"
-        *ngIf="!mobileService.isMobile"></app-search>
+        *ngIf="!mobileService.isMobile"
+        class="search"></app-search>
 </div>

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from '../service/login.service';
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import {RegisterService} from '../service/register.service';
 
 @Component({
     selector: 'app-login',
@@ -11,32 +12,39 @@ import {NzMessageService} from 'ng-zorro-antd';
 })
 
 export class LoginComponent implements OnInit {
-    login = false;
+    loginLoading = false;
+
+    registerLoading = false;
+
+    isVisible = false;
 
     nzLg = {span: 4, offset: 10};
 
     nzXs = {span: 20, offset: 2};
 
-    validateForm: FormGroup;
+    validateLoginForm: FormGroup;
+
+    validateRegisterForm: FormGroup;
 
     constructor(private fb: FormBuilder,
                 private loginService: LoginService,
+                private registerService: RegisterService,
                 private routerService: Router,
                 private messageService: NzMessageService) {
     }
 
-    submitForm(): void {
-        for (const i in this.validateForm.controls) {
+    submitLoginForm(): void {
+        for (const i in this.validateLoginForm.controls) {
             if (i) {
-                this.validateForm.controls[i].markAsDirty();
-                this.validateForm.controls[i].updateValueAndValidity();
+                this.validateLoginForm.controls[i].markAsDirty();
+                this.validateLoginForm.controls[i].updateValueAndValidity();
             }
         }
-        if (!this.validateForm.valid) {
+        if (!this.validateLoginForm.valid) {
             return;
         }
-        const userName = this.validateForm.get('userName').value;
-        const password = this.validateForm.get('password').value;
+        const userName = this.validateLoginForm.get('userName').value;
+        const password = this.validateLoginForm.get('password').value;
         const $response = this.loginService.response$.subscribe(
             response => {
                 if (response) {
@@ -46,18 +54,53 @@ export class LoginComponent implements OnInit {
                     this.messageService.create('error', '登录失败');
                 }
                 $response.unsubscribe();
-                this.login = false;
+                this.loginLoading = false;
             }
         );
         this.loginService.login(userName, password);
-        this.login = true;
+        this.loginLoading = true;
     }
 
     ngOnInit() {
-        this.validateForm = this.fb.group({
+        this.validateLoginForm = this.fb.group({
+            userName: [null, [Validators.required]],
+            password: [null, [Validators.required]],
+        });
+        this.validateRegisterForm = this.fb.group({
             userName: [null, [Validators.required]],
             password: [null, [Validators.required]],
         });
     }
 
+    closeModal() {
+        this.isVisible = false;
+    }
+
+    submitRegisterForm() {
+        for (const i in this.validateRegisterForm.controls) {
+            if (i) {
+                this.validateRegisterForm.controls[i].markAsDirty();
+                this.validateRegisterForm.controls[i].updateValueAndValidity();
+            }
+        }
+        if (!this.validateRegisterForm.valid) {
+            return;
+        }
+        this.registerLoading = true;
+        const userName = this.validateLoginForm.get('userName').value;
+        const password = this.validateLoginForm.get('password').value;
+        const $response = this.registerService.response$.subscribe(
+            response => {
+                if (response) {
+                    this.messageService.create('success', '注册成功');
+                    setTimeout(() => this.isVisible = false, 500);
+                } else {
+                    this.messageService.create('error', '注册失败');
+                }
+                $response.unsubscribe();
+                this.registerLoading = false;
+            }
+        );
+        this.registerService.register(userName, password);
+    }
 }

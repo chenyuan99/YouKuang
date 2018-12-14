@@ -10,6 +10,7 @@
     </button>
 </div>
 <nz-modal [(nzVisible)]="isVisible"
+          (nzOnCancel)="closeModal()"
           [nzTitle]="modalTitle"
           [nzContent]="modalContent"
           [nzFooter]="modalFooter">
