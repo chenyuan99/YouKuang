@@ -3,10 +3,11 @@ import {MobileService} from '../../../service/mobile.service';
 import {AccountItemService} from '../../../service/account-item.service';
 import {AddItemRequest} from '../../../entity/AddItemRequest';
 import {NzMessageService} from 'ng-zorro-antd';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {TableLoadingService} from '../../../service/table-loading.service';
 import {AccountService} from '../../../service/account.service';
+import {ItemTypeService} from '../../../service/item-type.service';
 
 @Component({
     selector: 'app-update-account',
@@ -26,19 +27,22 @@ export class UpdateAccountComponent implements OnInit {
                 private messageService: NzMessageService,
                 private fb: FormBuilder,
                 private activatedRouter: ActivatedRoute,
+                public itemTypeService: ItemTypeService,
                 public tableLoadingService: TableLoadingService) {
     }
 
     ngOnInit() {
         this.validateForm = this.fb.group({
-            datePickerTime: [null],
-            itemType: [null],
-            money: [null],
+            date: [null, [Validators.required]],
+            itemType: [null, [Validators.required]],
+            money: [null, [Validators.required]],
             tip: [null],
+            inOut: [null, [Validators.required]]
         });
         this.activatedRouter.paramMap.subscribe(
             params => this.accountID = params.get('id')
         );
+        console.log(this.itemTypeService.types);
     }
 
     closeDrawer() {
@@ -50,6 +54,15 @@ export class UpdateAccountComponent implements OnInit {
     }
 
     onSubmit() {
+        for (const i in this.validateForm.controls) {
+            if (i) {
+                this.validateForm.controls[i].markAsDirty();
+                this.validateForm.controls[i].updateValueAndValidity();
+            }
+        }
+        if (!this.validateForm.valid) {
+            return;
+        }
         this.tableLoadingService.isLoading = true;
         const $response = this.accountItemService.addItemResponse$.subscribe(
             ok => {
@@ -63,11 +76,15 @@ export class UpdateAccountComponent implements OnInit {
             }
         );
         this.accountItemService.nextResponse(
-            new AddItemRequest('收入',
+            new AddItemRequest(
+                this.validateForm.value['inOut'],
                 parseInt(this.validateForm.value['money'], 10),
                 this.validateForm.value['itemType'],
-                this.validateForm.value['datePickerTime'],
-                '嘤'), this.accountID);
+                this.validateForm.value['date'],
+                this.validateForm.value['tip']
+            ),
+            this.accountID
+        );
     }
 
     deleteCheckedItem() {
@@ -91,8 +108,14 @@ export class UpdateAccountComponent implements OnInit {
     }
 
     cancelDelete() {
-        this.accountService.accountToContentMap[this.accountID]
+        this.accountService
+            .accountToContentMap[this.accountID]
             .filter(item => item['checked'])
             .forEach(item => item['checked'] = false);
+    }
+
+    invalid(formControlName: string): boolean {
+        return this.validateForm.get(formControlName).dirty &&
+            this.validateForm.get(formControlName).invalid;
     }
 }

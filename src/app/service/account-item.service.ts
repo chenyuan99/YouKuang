@@ -36,9 +36,9 @@ export class AccountItemService implements OnInit {
             }
             this.accountService.accountToContentMap[accountID].push(
                 new AccountItem(233,
-                    '支出', 350,
-                    '吃', new Date(),
-                    '嘤嘤')
+                    request.inOut, request.money,
+                    request.type, new Date(request.time),
+                    request.tip)
             );
             this.accountService.nextAccountContent(accountID);
         }, 1000);

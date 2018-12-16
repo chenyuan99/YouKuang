@@ -3,9 +3,9 @@ export class AccountItemType {
 
     private readonly _type: string;
 
-    constructor(TypeID: number, Type: string) {
-        this._typeID = TypeID;
-        this._type = Type;
+    constructor(typeID: number, type: string) {
+        this._typeID = typeID;
+        this._type = type;
     }
 
     get typeID(): number {

@@ -25,27 +25,51 @@
            (nzOnClose)="closeDrawer()">
     <form nz-form [formGroup]="validateForm">
         <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzFor="inOut">收入/支出</nz-form-label>
+            <nz-form-control [nzSpan]="14">
+                <nz-select formControlName="inOut" id="inOut" nzPlaceHolder="收入/支出">
+                    <nz-option nzValue="收入" nzLabel="收入"></nz-option>
+                    <nz-option nzValue="支出" nzLabel="支出"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="itemType">类型</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <input nz-input formControlName="itemType" name="itemType" type="email" id="itemType">
+                <nz-select nzAllowClear formControlName="itemType" id="itemType" nzPlaceHolder="消费类型">
+                    <nz-option
+                        *ngFor="let type of itemTypeService.types"
+                        nzValue="{{type.type}}" nzLabel="{{type.type}}">
+                    </nz-option>
+                </nz-select>
+                <nz-form-explain *ngIf="invalid('itemType')">
+                    请选择记录类型
+                </nz-form-explain>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="money">金额</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <input nz-input formControlName="money" name="money" type="text" id="money">
+                <input nz-input formControlName="money" type="text" id="money">
+                <nz-form-explain *ngIf="invalid('money')">
+                    请输入记录金额
+                </nz-form-explain>
             </nz-form-control>
+
         </nz-form-item>
         <nz-form-item>
             <nz-form-label [nzSpan]="6" nzFor="date">日期</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <nz-date-picker nzShowTime formControlName="datePickerTime"></nz-date-picker>
+                <nz-date-picker nzShowTime formControlName="date" id="date"></nz-date-picker>
+                <nz-form-explain *ngIf="invalid('date')">
+                    请选择日期
+                </nz-form-explain>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label [nzSpan]="6" nzFor="date">备注</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzFor="tip">备注</nz-form-label>
             <nz-form-control [nzSpan]="14">
-                <textarea nz-input formControlName="tip" name="tip" type="text" id="tip"></textarea>
+                <textarea nz-input formControlName="tip" type="text" id="tip"></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
