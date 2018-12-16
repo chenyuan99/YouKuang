@@ -3,6 +3,7 @@ import {CollapseService} from '../../../service/collapse.service';
 import {NzMessageService} from 'ng-zorro-antd';
 import {AccountService} from '../../../service/account.service';
 import {CreateAccountRequest} from '../../../entity/CreateAccountRequest';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-add-account-button',
@@ -12,38 +13,20 @@ import {CreateAccountRequest} from '../../../entity/CreateAccountRequest';
 export class AddAccountButtonComponent implements OnInit {
     isVisible = false;
 
-    accountName: string;
-
     loading = false;
 
-    budge: string;
+    validateForm: FormGroup;
 
     constructor(private collapsedService: CollapseService,
                 private message: NzMessageService,
-                private accountService: AccountService) {
+                private accountService: AccountService,
+                private fb: FormBuilder) {
     }
 
     ngOnInit() {
-    }
-
-    onSubmit() {
-        this.loading = true;
-        if (!this.isValidate(this.accountName, this.budge)) {
-            this.message.create('error', '别调皮');
-            this.loading = false;
-        } else {
-            const $createAccountResponse = this.accountService.createAccountResponse$.subscribe(
-                response => {
-                    console.log(response);
-                    this.loading = false;
-                    this.isVisible = false;
-                    $createAccountResponse.unsubscribe();
-                }
-            );
-            const request = new CreateAccountRequest(this.accountName, parseInt(this.budge, 10));
-            this.accountService.createAccount(request);
-        }
-
+        this.validateForm = this.fb.group({
+            accountName: [null, [Validators.required]]
+        });
     }
 
     openModal() {
@@ -54,12 +37,28 @@ export class AddAccountButtonComponent implements OnInit {
         this.isVisible = false;
     }
 
-    private isValidate(accountName: string, budge: string): boolean {
-        // todo: 验证budge为数字
-        if (!accountName || !budge ||
-            accountName.length <= 0 || accountName.length >= 20 || budge.length <= 0) {
-            return false;
+    submitForm() {
+        for (const i in this.validateForm.controls) {
+            if (i) {
+                this.validateForm.controls[i].markAsDirty();
+                this.validateForm.controls[i].updateValueAndValidity();
+            }
         }
-        return true;
+        if (!this.validateForm.valid) {
+            return;
+        }
+
+        this.loading = true;
+        const $createAccountResponse = this.accountService.createAccountResponse$.subscribe(
+            response => {
+                console.log(response);
+                this.loading = false;
+                this.isVisible = false;
+                $createAccountResponse.unsubscribe();
+            }
+        );
+        const request = new CreateAccountRequest(this.validateForm.value['accountName']);
+        this.accountService.createAccount(request);
+
     }
 }

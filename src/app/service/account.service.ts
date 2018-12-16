@@ -147,7 +147,7 @@ export class AccountService {
                 request.name,
                 new Date(),
                 new Date(),
-                request.budget,
+                0,
                 this._accountList.length + 1)
             );
             this.accountToContentMap[String(this._accountList.length)] = [];

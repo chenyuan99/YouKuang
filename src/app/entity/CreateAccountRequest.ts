@@ -1,7 +1,6 @@
 export class CreateAccountRequest {
-    constructor(name: string, budget: number) {
+    constructor(name: string) {
         this._name = name;
-        this._budget = budget;
     }
 
     private _name: string;
@@ -12,15 +11,5 @@ export class CreateAccountRequest {
 
     set name(value: string) {
         this._name = value;
-    }
-
-    private _budget: number;
-
-    get budget(): number {
-        return this._budget;
-    }
-
-    set budget(value: number) {
-        this._budget = value;
     }
 }

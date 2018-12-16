@@ -6,7 +6,10 @@ import {filter} from 'rxjs/operators';
 import {CollapseService} from '../../../service/collapse.service';
 import {MobileService} from '../../../service/mobile.service';
 import {TableLoadingService} from '../../../service/table-loading.service';
-import {NzNotificationService} from 'ng-zorro-antd';
+import {NzMessageService, NzNotificationService} from 'ng-zorro-antd';
+import {ItemTypeService} from '../../../service/item-type.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AccountItemService} from '../../../service/account-item.service';
 
 @Component({
     selector: 'app-account-content',
@@ -18,9 +21,17 @@ export class AccountContentComponent implements OnInit {
 
     private accountName = '';
 
+    private accountID = '';
+
     private costSum = 0;
 
     private incomeSum = 0;
+
+    private accountItemID = 0;
+
+    modifyDrawerIsVisible: any;
+
+    validateForm: FormGroup;
 
     constructor(private accountService: AccountService,
                 private routerService: Router,
@@ -28,10 +39,22 @@ export class AccountContentComponent implements OnInit {
                 private collapsedService: CollapseService,
                 private mobileService: MobileService,
                 public loading: TableLoadingService,
-                private notification: NzNotificationService) {
+                private notification: NzNotificationService,
+                private itemTypeService: ItemTypeService,
+                private tableLoadingService: TableLoadingService,
+                private fb: FormBuilder,
+                private accountItemService: AccountItemService,
+                private messageService: NzMessageService) {
     }
 
     ngOnInit() {
+        this.validateForm = this.fb.group({
+            date: [null, [Validators.required]],
+            itemType: [null, [Validators.required]],
+            money: [null, [Validators.required]],
+            tip: [null],
+            inOut: [null, [Validators.required]]
+        });
         this.accountService.accountContent$.subscribe(
             value => {
                 this.resetData();
@@ -75,6 +98,51 @@ export class AccountContentComponent implements OnInit {
             `时间: ${time.toLocaleString()}   类型: ${type}`);
     }
 
+    closeDrawer() {
+        this.modifyDrawerIsVisible = false;
+    }
+
+    openDrawer(item: AccountItem) {
+        this.modifyDrawerIsVisible = true;
+        this.validateForm.controls['date'].setValue(item.time);
+        this.validateForm.controls['itemType'].setValue(item.type);
+        this.validateForm.controls['money'].setValue(item.money);
+        this.validateForm.controls['tip'].setValue(item.tip);
+        this.validateForm.controls['inOut'].setValue(item.inOut);
+        this.accountItemID = item.iNo;
+        console.log(item);
+    }
+
+    invalid(formControlName: string): boolean {
+        return this.validateForm.get(formControlName).dirty &&
+            this.validateForm.get(formControlName).invalid;
+    }
+
+    onSubmit() {
+        this.tableLoadingService.isLoading = true;
+        const $modifyItemResponse = this.accountItemService.modifyItemResponse$.subscribe(
+            response => {
+                if (response) {
+                    this.closeDrawer();
+                    this.messageService.create('success', '修改成功');
+                } else {
+                    this.closeDrawer();
+                    this.messageService.create('failed', '修改失败');
+                }
+                $modifyItemResponse.unsubscribe();
+            }
+        );
+        this.accountItemService.nextModifyItemResponse(
+            this.accountID,
+            this.accountItemID,
+            this.validateForm.value['inOut'],
+            parseInt(this.validateForm.value['money'], 10),
+            this.validateForm.value['itemType'],
+            this.validateForm.value['date'],
+            this.validateForm.value['tip'],
+        );
+    }
+
     private resetData() {
         this.costSum = 0;
         this.incomeSum = 0;
@@ -83,7 +151,7 @@ export class AccountContentComponent implements OnInit {
 
     private updateData() {
         this.accountName = this.activatedRouterService.snapshot.queryParamMap.get('accountName');
-        const accountID = this.activatedRouterService.snapshot.paramMap.get('id');
-        this.accountService.nextAccountContent(accountID);
+        this.accountID = this.activatedRouterService.snapshot.paramMap.get('id');
+        this.accountService.nextAccountContent(this.accountID);
     }
 }

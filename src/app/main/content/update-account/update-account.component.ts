@@ -42,7 +42,6 @@ export class UpdateAccountComponent implements OnInit {
         this.activatedRouter.paramMap.subscribe(
             params => this.accountID = params.get('id')
         );
-        console.log(this.itemTypeService.types);
     }
 
     closeDrawer() {
@@ -75,7 +74,7 @@ export class UpdateAccountComponent implements OnInit {
                 $response.unsubscribe();
             }
         );
-        this.accountItemService.nextResponse(
+        this.accountItemService.nextAddItemResponse(
             new AddItemRequest(
                 this.validateForm.value['inOut'],
                 parseInt(this.validateForm.value['money'], 10),

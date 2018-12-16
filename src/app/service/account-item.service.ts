@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
@@ -9,8 +9,10 @@ import {AccountItem} from '../entity/AccountItem';
 @Injectable({
     providedIn: 'root'
 })
-export class AccountItemService implements OnInit {
+export class AccountItemService {
     private addItemURL = 'account/';
+
+    private modifyItemURL = 'account/';
 
     constructor(private httpClient: HttpClient,
                 private accountService: AccountService,
@@ -23,7 +25,13 @@ export class AccountItemService implements OnInit {
         return this._addItemResponse$.asObservable();
     }
 
-    nextResponse(request: AddItemRequest, accountID: string) {
+    private _modifyItemResponse$ = new Subject<boolean>();
+
+    get modifyItemResponse$(): Observable<boolean> {
+        return this._modifyItemResponse$.asObservable();
+    }
+
+    nextAddItemResponse(request: AddItemRequest, accountID: string) {
         /*        this.httpClient.put(this.addItemURL, request).subscribe(
 					response => {
 						this.addItemResponse$.next(true);
@@ -44,7 +52,25 @@ export class AccountItemService implements OnInit {
         }, 1000);
     }
 
-    ngOnInit(): void {
+    nextModifyItemResponse(accountID: string, iNo: number, inOut: string, money: number,
+                           type: string, time: Date, tip: string) {
+        /*        this.httpClient.patch(this.modifyItemURL + iNo, {}).subscribe(
+					response => {
+						this._modifyItemResponse$.next(true);
+					}
+				);*/
+        setTimeout(() => {
+            this._modifyItemResponse$.next(true);
+            const accountItem = this.accountService.accountToContentMap[accountID].find(item => item.iNo === iNo);
+            accountItem.inOut = inOut;
+            accountItem.money = money;
+            accountItem.type = type;
+            accountItem.time = time;
+            accountItem.tip = tip;
+            console.log(accountItem);
+            this.accountService.nextAccountContent(accountID);
+        }, 1000);
     }
+
 
 }

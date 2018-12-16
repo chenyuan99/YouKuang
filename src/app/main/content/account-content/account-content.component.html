@@ -36,7 +36,6 @@
     </div>
 
 
-    <!--todo: 移动端表格-->
     <div nz-row>
         <div nz-col class="col">
             <nz-table
@@ -60,7 +59,7 @@
                     <ng-container *ngIf="!item.isDeleted">
                         <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
                         <td>{{item.inOut}}</td>
-                        <td>{{item.type}}</td>
+                        <td (click)="openDrawer(item)">{{item.type}}</td>
                         <td>{{item.money}}</td>
                         <td>{{item.time.toLocaleString()}}</td>
                         <td>{{item.tip}}</td>
@@ -85,7 +84,7 @@
                     <ng-container
                         *ngIf="!item.isDeleted">
                         <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
-                        <td>{{item.type}}</td>
+                        <td (click)="openDrawer(item)">{{item.type}}</td>
                         <td (click)="createNotification(item.type, item.money, item.time, item.tip)">
                             {{item.money}}
                         </td>
@@ -95,6 +94,89 @@
             </nz-table>
         </div>
     </div>
-
     <app-update-account></app-update-account>
+
+    <!--修改一笔-->
+    <nz-drawer [nzClosable]="true"
+               [nzVisible]="modifyDrawerIsVisible"
+               [nzMask]="true"
+               [nzPlacement]="this.mobileService.isMobile ? 'bottom' : 'right' "
+               [nzWidth]="512"
+               [nzHeight]="512"
+               nzTitle="修改记录"
+               (nzOnClose)="closeDrawer()">
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="inOut">收入/支出</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-select formControlName="inOut" id="inOut" nzPlaceHolder="收入/支出">
+                        <nz-option nzValue="收入" nzLabel="收入"></nz-option>
+                        <nz-option nzValue="支出" nzLabel="支出"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="itemType">类型</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-select nzAllowClear formControlName="itemType" id="itemType" nzPlaceHolder="消费类型">
+                        <nz-option
+                            *ngFor="let type of itemTypeService.types"
+                            nzValue="{{type.type}}" nzLabel="{{type.type}}">
+                        </nz-option>
+                    </nz-select>
+                    <nz-form-explain *ngIf="invalid('itemType')">
+                        请选择记录类型
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="money">金额</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input formControlName="money" type="text" id="money">
+                    <nz-form-explain *ngIf="invalid('money')">
+                        请输入记录金额
+                    </nz-form-explain>
+                </nz-form-control>
+
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="date">日期</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <nz-date-picker nzShowTime formControlName="date" id="date"></nz-date-picker>
+                    <nz-form-explain *ngIf="invalid('date')">
+                        请选择日期
+                    </nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzFor="tip">备注</nz-form-label>
+                <nz-form-control [nzSpan]="14">
+                    <textarea nz-input formControlName="tip" type="text" id="tip"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+        <div class="footer">
+            <div nz-row nzType="flex" nzJustify="space-between">
+                <div nz-col
+                     [nzLg]="{span: 6}"
+                     [nzXs]="{span: 8}">
+                    <button nz-button
+                            nzType="primary"
+                            (click)="onSubmit()"
+                            [nzLoading]="tableLoadingService.isLoading"
+                            nzBlock>确定
+                    </button>
+                </div>
+                <div nz-col
+                     [nzLg]="{span: 6}"
+                     [nzXs]="{span: 8}">
+                    <button nz-button
+                            nzType="default"
+                            (click)="closeDrawer()"
+                            nzBlock>取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nz-drawer>
 </div>
