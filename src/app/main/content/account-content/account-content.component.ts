@@ -17,17 +17,17 @@ import {AccountItemService} from '../../../service/account-item.service';
     styleUrls: ['./account-content.component.css']
 })
 export class AccountContentComponent implements OnInit {
-    private accountItemList: AccountItem[] = [];
+    accountItemList: AccountItem[] = [];
 
-    private accountName = '';
+    accountName = '';
 
-    private accountID = '';
+    accountID = '';
 
-    private costSum = 0;
+    costSum = 0;
 
-    private incomeSum = 0;
+    incomeSum = 0;
 
-    private accountItemID = 0;
+    accountItemID = 0;
 
     modifyDrawerIsVisible: any;
 
@@ -36,12 +36,12 @@ export class AccountContentComponent implements OnInit {
     constructor(private accountService: AccountService,
                 private routerService: Router,
                 private activatedRouterService: ActivatedRoute,
-                private collapsedService: CollapseService,
-                private mobileService: MobileService,
+                public collapsedService: CollapseService,
+                public mobileService: MobileService,
                 public loading: TableLoadingService,
                 private notification: NzNotificationService,
-                private itemTypeService: ItemTypeService,
-                private tableLoadingService: TableLoadingService,
+                public itemTypeService: ItemTypeService,
+                public tableLoadingService: TableLoadingService,
                 private fb: FormBuilder,
                 private accountItemService: AccountItemService,
                 private messageService: NzMessageService) {
@@ -92,7 +92,7 @@ export class AccountContentComponent implements OnInit {
 
     }
 
-    // item.type, item.money, item.time, item.tip
+    // item.typeID, item.money, item.time, item.tip
     public createNotification(type: string, money: number, time: Date, tip: string) {
         this.notification.create('info', tip,
             `时间: ${time.toLocaleString()}   类型: ${type}`);
@@ -104,13 +104,12 @@ export class AccountContentComponent implements OnInit {
 
     openDrawer(item: AccountItem) {
         this.modifyDrawerIsVisible = true;
-        this.validateForm.controls['date'].setValue(item.time);
-        this.validateForm.controls['itemType'].setValue(item.type);
+        this.validateForm.controls['date'].setErrors({'incorrect': true});
+        this.validateForm.controls['itemType'].setErrors({'incorrect': true});
         this.validateForm.controls['money'].setValue(item.money);
         this.validateForm.controls['tip'].setValue(item.tip);
         this.validateForm.controls['inOut'].setValue(item.inOut);
         this.accountItemID = item.iNo;
-        console.log(item);
     }
 
     invalid(formControlName: string): boolean {
@@ -123,12 +122,12 @@ export class AccountContentComponent implements OnInit {
         const $modifyItemResponse = this.accountItemService.modifyItemResponse$.subscribe(
             response => {
                 if (response) {
-                    this.closeDrawer();
                     this.messageService.create('success', '修改成功');
                 } else {
-                    this.closeDrawer();
                     this.messageService.create('failed', '修改失败');
                 }
+                this.closeDrawer();
+                this.tableLoadingService.isLoading = false;
                 $modifyItemResponse.unsubscribe();
             }
         );
@@ -138,18 +137,18 @@ export class AccountContentComponent implements OnInit {
             this.validateForm.value['inOut'],
             parseInt(this.validateForm.value['money'], 10),
             this.validateForm.value['itemType'],
-            this.validateForm.value['date'],
+            (<Date>this.validateForm.value['date']),
             this.validateForm.value['tip'],
         );
     }
 
-    private resetData() {
+    resetData() {
         this.costSum = 0;
         this.incomeSum = 0;
         this.loading.isLoading = true;
     }
 
-    private updateData() {
+    updateData() {
         this.accountName = this.activatedRouterService.snapshot.queryParamMap.get('accountName');
         this.accountID = this.activatedRouterService.snapshot.paramMap.get('id');
         this.accountService.nextAccountContent(this.accountID);

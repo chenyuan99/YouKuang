@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserInfo} from '../entity/UserInfo';
 import {Observable, of} from 'rxjs';
-import {USER_INFO} from '../entity/DATA';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +13,6 @@ export class UserService {
     }
 
     getUserInfo(): Observable<UserInfo> {
-        return of(USER_INFO);
-        // return this.httpClient.get<UserInfo>(this.userInfoURL);
+        return this.httpClient.get<UserInfo>(this.userInfoURL);
     }
 }

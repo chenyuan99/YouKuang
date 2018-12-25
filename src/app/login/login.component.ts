@@ -87,8 +87,8 @@ export class LoginComponent implements OnInit {
             return;
         }
         this.registerLoading = true;
-        const userName = this.validateLoginForm.get('userName').value;
-        const password = this.validateLoginForm.get('password').value;
+        const userName = this.validateRegisterForm.get('userName').value;
+        const password = this.validateRegisterForm.get('password').value;
         const $response = this.registerService.response$.subscribe(
             response => {
                 if (response) {

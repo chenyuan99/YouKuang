@@ -1,19 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {AddItemRequest} from '../entity/AddItemRequest';
 import {AccountService} from './account.service';
-import {AccountItem} from '../entity/AccountItem';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AccountItemService {
-    private addItemURL = 'account/';
-
-    private modifyItemURL = 'account/';
-
     constructor(private httpClient: HttpClient,
                 private accountService: AccountService,
                 private activateRouter: ActivatedRoute) {
@@ -32,44 +27,81 @@ export class AccountItemService {
     }
 
     nextAddItemResponse(request: AddItemRequest, accountID: string) {
-        /*        this.httpClient.put(this.addItemURL, request).subscribe(
-					response => {
-						this.addItemResponse$.next(true);
-					}
-				);*/
-        setTimeout(() => {
-            this._addItemResponse$.next(true);
-            if (!this.accountService.accountToContentMap[accountID]) {
-                this.accountService.accountToContentMap[accountID] = [];
+        const addItemURL = 'account/';
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        };
+        const data = new HttpParams()
+            .set('inOut', request.inOut)
+            .set('money', String(request.money))
+            .set('time', String(request.time))
+            .set('type', String(request.type))
+            .set('tip', request.tip);
+/*        const data = {
+            inOut: request.inOut,
+            money: request.money,
+            time: request.time,
+            typeID: request.typeID,
+            tip: request.tip,
+        };*/
+        console.log(data.toString());
+        this.httpClient.put(addItemURL + accountID, data.toString(), httpOptions).subscribe(
+            response => {
+                this._addItemResponse$.next(true);
+                this.accountService.nextAccountContent(accountID);
+            },
+            error => {
+                this._addItemResponse$.next(false);
             }
-            this.accountService.accountToContentMap[accountID].push(
-                new AccountItem(233,
-                    request.inOut, request.money,
-                    request.type, new Date(request.time),
-                    request.tip)
-            );
-            this.accountService.nextAccountContent(accountID);
-        }, 1000);
+        );
+        /*        setTimeout(() => {
+					this._addItemResponse$.next(true);
+					if (!this.accountService.accountToContentMap[accountID]) {
+						this.accountService.accountToContentMap[accountID] = [];
+					}
+					this.accountService.accountToContentMap[accountID].push(
+						new AccountItem(233,
+							request.inOut, request.money,
+							request.typeID, new Date(request.time),
+							request.tip)
+					);
+					this.accountService.nextAccountContent(accountID);
+				}, 1000);*/
     }
 
     nextModifyItemResponse(accountID: string, iNo: number, inOut: string, money: number,
-                           type: string, time: Date, tip: string) {
-        /*        this.httpClient.patch(this.modifyItemURL + iNo, {}).subscribe(
-					response => {
-						this._modifyItemResponse$.next(true);
-					}
-				);*/
-        setTimeout(() => {
+                           type: number, time: Date, tip: string) {
+        const modifyItemURL = 'account/';
+        const data = new HttpParams()
+            .set('accountItemID', String(iNo))
+            .set('inOut', inOut)
+            .set('money', String(money))
+            .set('time', String(time.getTime()))
+            .set('type', String(type))
+            .set('tip', tip);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }),
+        };
+        this.httpClient.patch(modifyItemURL + accountID, data.toString(), httpOptions).subscribe(
+            response => {
+                this._modifyItemResponse$.next(true);
+            }
+        );
+/*        setTimeout(() => {
             this._modifyItemResponse$.next(true);
             const accountItem = this.accountService.accountToContentMap[accountID].find(item => item.iNo === iNo);
             accountItem.inOut = inOut;
             accountItem.money = money;
-            accountItem.type = type;
+            accountItem.typeID = type;
             accountItem.time = time;
             accountItem.tip = tip;
             console.log(accountItem);
             this.accountService.nextAccountContent(accountID);
-        }, 1000);
+        }, 1000);*/
     }
 
 

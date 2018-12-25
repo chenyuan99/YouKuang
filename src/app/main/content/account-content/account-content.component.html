@@ -59,7 +59,7 @@
                     <ng-container *ngIf="!item.isDeleted">
                         <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
                         <td>{{item.inOut}}</td>
-                        <td (click)="openDrawer(item)">{{item.type}}</td>
+                        <td (click)="openDrawer(item)">{{itemTypeService.typeID2Name[item.typeID]}}</td>
                         <td>{{item.money}}</td>
                         <td>{{item.time.toLocaleString()}}</td>
                         <td>{{item.tip}}</td>
@@ -84,8 +84,8 @@
                     <ng-container
                         *ngIf="!item.isDeleted">
                         <td nzShowCheckbox [(nzChecked)]="item.checked"></td>
-                        <td (click)="openDrawer(item)">{{item.type}}</td>
-                        <td (click)="createNotification(item.type, item.money, item.time, item.tip)">
+                        <td (click)="openDrawer(item)">{{itemTypeService.typeID2Name[item.typeID]}}</td>
+                        <td (click)="createNotification(itemTypeService.typeID2Name[item.typeID], item.money, item.time, item.tip)">
                             {{item.money}}
                         </td>
                     </ng-container>
@@ -121,7 +121,7 @@
                     <nz-select nzAllowClear formControlName="itemType" id="itemType" nzPlaceHolder="消费类型">
                         <nz-option
                             *ngFor="let type of itemTypeService.types"
-                            nzValue="{{type.type}}" nzLabel="{{type.type}}">
+                            nzValue="{{type.typeID}}" nzLabel="{{type.type}}">
                         </nz-option>
                     </nz-select>
                     <nz-form-explain *ngIf="invalid('itemType')">

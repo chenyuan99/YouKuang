@@ -13,6 +13,10 @@ export class CollapseService {
         return this._isCollapsed;
     }
 
+    set isCollapsed(value: boolean) {
+        this._isCollapsed = value;
+    }
+
     changeCollapsed() {
         this._isCollapsed = !this._isCollapsed;
     }

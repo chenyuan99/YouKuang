@@ -8,6 +8,8 @@ import {HttpClient} from '@angular/common/http';
 export class ItemTypeService {
     types: AccountItemType[];
 
+    typeID2Name = {};
+
     constructor(private httpClient: HttpClient) {
     }
 }

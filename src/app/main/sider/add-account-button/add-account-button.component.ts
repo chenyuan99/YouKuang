@@ -17,7 +17,7 @@ export class AddAccountButtonComponent implements OnInit {
 
     validateForm: FormGroup;
 
-    constructor(private collapsedService: CollapseService,
+    constructor(public collapsedService: CollapseService,
                 private message: NzMessageService,
                 private accountService: AccountService,
                 private fb: FormBuilder) {

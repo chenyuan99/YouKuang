@@ -1,10 +1,10 @@
 export class AccountItem {
-    constructor(iNo: number, inOut: string, money: number, type: string, time: Date, tip: string) {
+    constructor(iNo: number, inOut: string, money: number, typeID: number, time: string, tip: string) {
         this._iNo = iNo;
         this._inOut = inOut;
         this._money = money;
-        this._type = type;
-        this._time = time;
+        this._typeID = typeID;
+        this._time = new Date(time);
         this._tip = tip;
     }
 
@@ -38,14 +38,14 @@ export class AccountItem {
         this._money = value;
     }
 
-    private _type: string;
+    private _typeID: number;
 
-    get type(): string {
-        return this._type;
+    get typeID(): number {
+        return this._typeID;
     }
 
-    set type(value: string) {
-        this._type = value;
+    set typeID(value: number) {
+        this._typeID = value;
     }
 
     private _time: Date;

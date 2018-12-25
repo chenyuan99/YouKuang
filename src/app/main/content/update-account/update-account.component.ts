@@ -71,6 +71,7 @@ export class UpdateAccountComponent implements OnInit {
                     this.messageService.create('error', '记录失败');
                 }
                 this.drawerIsVisible = false;
+                this.tableLoadingService.isLoading = false;
                 $response.unsubscribe();
             }
         );
@@ -78,8 +79,8 @@ export class UpdateAccountComponent implements OnInit {
             new AddItemRequest(
                 this.validateForm.value['inOut'],
                 parseInt(this.validateForm.value['money'], 10),
-                this.validateForm.value['itemType'],
-                this.validateForm.value['date'],
+                parseInt(this.validateForm.value['itemType'], 10),
+                (<Date>this.validateForm.value['date']).getTime(),
                 this.validateForm.value['tip']
             ),
             this.accountID

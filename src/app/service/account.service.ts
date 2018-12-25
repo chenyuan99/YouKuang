@@ -1,16 +1,22 @@
 import {Injectable} from '@angular/core';
 import {MyAccount} from '../entity/MyAccount';
 import {Observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AccountItem} from '../entity/AccountItem';
-import {ACCOUNT_LIST, ACCOUNT_TO_CONTENT} from '../entity/DATA';
 import {CreateAccountRequest} from '../entity/CreateAccountRequest';
+import {Response} from '../entity/Response';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AccountService {
     private deleteAccountItemURL = 'account';
+
+    private _createAccountURL = '/account';
+
+    private _getAllAccountURL = '/accounts';
+
+    private _getAccountByIdURL = '/account/';
 
     constructor(private _httpClient: HttpClient) {
     }
@@ -27,36 +33,6 @@ export class AccountService {
         return this._deleteResponse$.asObservable();
     }
 
-    private _getAllAccountURL = '/accounts';
-
-    get getAllAccountURL(): string {
-        return this._getAllAccountURL;
-    }
-
-    set getAllAccountURL(value: string) {
-        this._getAllAccountURL = value;
-    }
-
-    private _getAccountByIdURL = '/account';
-
-    get getAccountByIdURL(): string {
-        return this._getAccountByIdURL;
-    }
-
-    set getAccountByIdURL(value: string) {
-        this._getAccountByIdURL = value;
-    }
-
-    private _createAccountURL = '/account';
-
-    get createAccountURL(): string {
-        return this._createAccountURL;
-    }
-
-    set createAccountURL(value: string) {
-        this._createAccountURL = value;
-    }
-
     private _createAccountResponse$ = new Subject<boolean>();
 
     get createAccountResponse$(): Observable<boolean> {
@@ -67,29 +43,19 @@ export class AccountService {
         return this._httpClient;
     }
 
-    set httpClient(value: HttpClient) {
-        this._httpClient = value;
-    }
-
-    private _accountList: MyAccount[] = ACCOUNT_LIST;
+    private _accountList: MyAccount[] = [];
 
     get accountList(): MyAccount[] {
         return this._accountList;
     }
 
-    set accountList(value: MyAccount[]) {
-        this._accountList = value;
-    }
 
-    private _accountToContentMap: { [key: string]: AccountItem[] } = ACCOUNT_TO_CONTENT;
+    private _accountToContentMap: { [key: string]: AccountItem[] } = {};
 
     get accountToContentMap(): { [key: string]: AccountItem[] } {
         return this._accountToContentMap;
     }
 
-    set accountToContentMap(value: { [key: string]: AccountItem[] }) {
-        this._accountToContentMap = value;
-    }
 
     private _accountList$ = new Subject<MyAccount[]>();
 
@@ -105,78 +71,60 @@ export class AccountService {
         return this._accountContent$.asObservable();
     }
 
-    // todo: 删除账本项
     deleteAccountItem(accountID: string, items: AccountItem[]) {
-        setTimeout(() => {
-            items.forEach(item => console.log(`删除${this.deleteAccountItemURL}/${accountID}/${item.iNo}`));
-            this._accountToContentMap[accountID].filter(item => item['checked'])
-                                                .forEach(item => {
-                                                    item['isDeleted'] = true;
-                                                    item['checked'] = false;
-                                                });
-            this._accountContent$.next(
-                this._accountToContentMap[accountID].filter(item => !item['isDeleted'])
+        items.forEach(item => {
+            const data = new HttpParams()
+                .set('accountItemID', String(item.iNo));
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }),
+                params: data
+            };
+            this.httpClient.delete<Response>(`${this.deleteAccountItemURL}/${accountID}`, httpOptions).subscribe(
+                response => {
+                    this._deleteResponse$.next(response.succeed);
+                }
             );
-            this._deleteResponse$.next(true);
-        }, 500);
-        /*        this.httpClient.delete(`${this.deleteAccountItemURL}/${accountID}/${item.iNo}`).subscribe(
-					response => console.log(response)
-				);*/
+        });
+        this._accountToContentMap[accountID].filter(item => item['checked'])
+                                            .forEach(item => {
+                                                item['isDeleted'] = true;
+                                                item['checked'] = false;
+                                            });
+        this._accountContent$.next(
+            this._accountToContentMap[accountID].filter(item => !item['isDeleted'])
+        );
     }
 
-    // todo: 新建账本
     createAccount(request: CreateAccountRequest) {
-        /*        this._httpClient.post<Response>(this._createAccountURL, request).subscribe(
-					response => {
-						if (response.succeed) {
-							this._accountList.push(new MyAccount(
-								'newAccount',
-								new Date(),
-								new Date(),
-								1000,
-								2333)
-							);
-							this.nextAllAccount();
-							this._createAccountResponse$.next(new Response(true, '添加账单成功'));
-						}
-					}
-				);
-				return this.createAccountResponse$;*/
-        setTimeout(() => {
-            this._accountList.push(new MyAccount(
-                request.name,
-                new Date(),
-                new Date(),
-                0,
-                this._accountList.length + 1)
-            );
-            this.accountToContentMap[String(this._accountList.length)] = [];
-            this.nextAllAccount();
-            this._createAccountResponse$.next(true);
-        }, 1000);
+        const data = {
+            accountName: request.name
+        };
+        this._httpClient.post<Response>(this._createAccountURL, null, {
+            params: data
+        }).subscribe(
+            response => {
+                if (response.succeed) {
+                    this.nextAllAccount();
+                    this._createAccountResponse$.next(true);
+                } else {
+                    this._createAccountResponse$.next(false);
+                }
+            }
+        );
     }
 
     nextAccountContent(id: string) {
-        if (this._accountToContentMap[id]) {
-            this._accountContent$.next([...this._accountToContentMap[String(id)].filter(item => !item['isDeleted'])]);
-            return;
-        }
         this._httpClient.get<AccountItem[]>(this._getAccountByIdURL + id).subscribe(
             value => {
-                this._accountToContentMap[String[id]] = value;
+                this._accountToContentMap[id] = value;
                 this._accountContent$.next(value);
             }
         );
     }
 
     nextAllAccount() {
-        this._accountList.forEach(
-            account => this._accountIdToName[account.accountID] = account.accountName
-        );
-        if (this._accountList.length !== 0) {
-            this._accountList$.next(this._accountList);
-            return;
-        }
         this._httpClient.get<MyAccount[]>(this._getAllAccountURL).subscribe(
             value => {
                 this._accountList = value;

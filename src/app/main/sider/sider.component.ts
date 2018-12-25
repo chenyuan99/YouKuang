@@ -15,15 +15,19 @@ export class SiderComponent implements OnInit {
 
     accountContentURL = 'account/';
 
-    constructor(private collapsedService: CollapseService,
+    constructor(public collapsedService: CollapseService,
                 private accountService: AccountService,
-                private mobileService: MobileService,
-                private routerService: Router) {
+                public mobileService: MobileService) {
     }
 
     ngOnInit() {
         this.accountService.accountList$.subscribe(
-            value => this.accountList = value
+            value => {
+                this.accountList = value;
+                value.forEach(account => {
+                    this.accountService.nextAccountContent(String(account.accountID));
+                });
+            }
         );
         this.accountService.nextAllAccount();
     }

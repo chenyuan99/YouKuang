@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
+import {Response} from '../entity/Response';
 
 @Injectable({
     providedIn: 'root'
@@ -16,24 +17,21 @@ export class RegisterService {
     }
 
     register(userName: string, password: string) {
-        // todo: http
-
-        /*        const registerURL = '/registerLoading';
-				this.httpClient.post(registerURL, {
-					userName: userName,
-					password: password
-				}).subscribe(
-					response => {
-						if (response) {
-							this._response$.next(true);
-						} else {
-							this._response$.next(false);
-						}
-					}
-				);*/
-        setTimeout(() => {
-            this._response$.next(true);
-            console.log('next');
-        }, 500);
+        const registerURL = '/register';
+        const data = {
+            userName: userName,
+            password: password,
+        };
+        this.httpClient.get<Response>(registerURL, {
+            params: data
+        }).subscribe(
+            response => {
+                if (response.succeed) {
+                    this._response$.next(true);
+                } else {
+                    this._response$.next(false);
+                }
+            }
+        );
     }
 }

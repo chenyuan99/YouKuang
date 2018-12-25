@@ -39,7 +39,7 @@
                 <nz-select nzAllowClear formControlName="itemType" id="itemType" nzPlaceHolder="消费类型">
                     <nz-option
                         *ngFor="let type of itemTypeService.types"
-                        nzValue="{{type.type}}" nzLabel="{{type.type}}">
+                        nzValue="{{type.typeID}}" nzLabel="{{type.type}}">
                     </nz-option>
                 </nz-select>
                 <nz-form-explain *ngIf="invalid('itemType')">

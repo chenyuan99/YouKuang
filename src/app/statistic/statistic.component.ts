@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AccountService} from '../service/account.service';
 import {MobileService} from '../service/mobile.service';
 import {AccountChartData} from '../entity/AccountChartData';
+import {ItemTypeService} from '../service/item-type.service';
 
 @Component({
     selector: 'app-statistic',
@@ -34,12 +35,12 @@ export class StatisticComponent implements OnInit {
     };
 
     constructor(private accountService: AccountService,
-                public mobileService: MobileService) {
+                public mobileService: MobileService,
+                private itemTypeService: ItemTypeService) {
     }
 
     ngOnInit() {
         for (const key in this.accountService.accountToContentMap) {
-            console.log(key);
             if (key) {
                 const accountName = this.accountService.accountIdToName[key];
                 const contentList = this.accountService.accountToContentMap[key];
@@ -48,7 +49,7 @@ export class StatisticComponent implements OnInit {
                         contentList.filter(item => !item['isDeleted'])
                                    .map(item => {
                                        return {
-                                           'name': item.type,
+                                           'name': this.itemTypeService.typeID2Name[item.typeID],
                                            'value': item.money,
                                        };
                                    }))
